@@ -1,6 +1,6 @@
 from pelicanconf import *
 
-SITEURL = "https://codesnippets.com"
+SITEURL = "https://codesnips.pro"
 RELATIVE_URLS = False
 
 
