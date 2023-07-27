@@ -22,7 +22,7 @@ jobs:
       - name: Build Pages Only
         run: PYTHONPATH=. invoke build
       - name: Build Pages and Publish
-        if: github.ref == 'refs/heads/master'
+        if: github.ref == 'refs/heads/main'
         run: PYTHONPATH=. invoke publish && tree dist
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
