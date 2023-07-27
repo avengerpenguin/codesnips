@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <title>Using direnv on a Python&nbsp;project | Code Snippets</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="/using-direnv-on-a-python-project/" />
+    <meta property="og:title" content="Code Snippets - Using direnv on a Python&nbsp;project" />
+    <meta property="og:description" content="Prerequisites direnv is installed Snippet Create .envrc in project root: # Using direnv built-in to create venv layout python3 # Create venv as alias to latest # Useful for configuring ./venv..." />
+
+
+
+  <meta name="description" content="Prerequisites direnv is installed Snippet Create .envrc in project root: # Using direnv built-in to create venv layout python3 # Create venv as alias to latest # Useful for configuring ./venv as a fix dir in Pycharm etc. ln -sfn .direnv/$(basename $VIRTUAL_ENV)/ venv # Optionally look for a 2nd file containing passwords # e …" />
+
+
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="theme-color" content="#ffffff">
+
+
+
+
+
+
+
+    <link rel="stylesheet" href="/theme/css/awsm.css" />
+
+        <link rel="stylesheet" href="/theme/css/common.min.css?7590ec25">
+
+        <link rel="stylesheet" href="/theme/css/style.min.css?25dabd6c">
+
+
+</head>
+
+<body>
+    <header>
+        <h1><a href="/">Code Snippets</a></h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/search/">Search</a></li>
+            </ul>
+        </nav>
+    </header>
+	<main>
+    <h1>Using direnv on a Python&nbsp;project</h1>
+    
+
+    <h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li><code>direnv</code> is&nbsp;installed</li>
+</ul>
+<h2 id="snippet">Snippet</h2>
+<p>Create <code>.envrc</code> in project&nbsp;root:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Using direnv built-in to create venv</span>
+layout<span class="w"> </span>python3<span class="w">  </span>
+<span class="c1"># Create venv as alias to latest</span>
+<span class="c1"># Useful for configuring ./venv as a fix dir in Pycharm etc.</span>
+ln<span class="w"> </span>-sfn<span class="w"> </span>.direnv/<span class="k">$(</span>basename<span class="w"> </span><span class="nv">$VIRTUAL_ENV</span><span class="k">)</span>/<span class="w"> </span>venv<span class="w">  </span>
+
+<span class="c1"># Optionally look for a 2nd file containing passwords</span>
+<span class="c1"># e.g. export API_KEY=xxx</span>
+<span class="k">if</span><span class="w"> </span>file<span class="w"> </span>.envrc.secret<span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w">  </span>
+<span class="w">  </span>source_env<span class="w"> </span>.envrc.secret<span class="w">  </span>
+<span class="k">fi</span>
+</code></pre></div>
+
+
+
+	</main>
+
+<script type="text/javascript">
+const copyButtonLabel = "Copy";
+
+let blocks = document.querySelectorAll("pre");
+
+blocks.forEach((block) => {
+  // only add button if browser supports Clipboard API
+  if (navigator.clipboard) {
+    let button = document.createElement("button");
+
+    button.innerText = copyButtonLabel;
+    block.appendChild(button);
+
+    button.addEventListener("click", async () => {
+      await copyCode(block, button);
+    });
+  }
+});
+
+async function copyCode(block, button) {
+  let code = block.querySelector("code");
+  let text = code.innerText;
+
+  await navigator.clipboard.writeText(text);
+
+  // visual feedback that task is completed
+  button.innerText = "Copied";
+
+  setTimeout(() => {
+    button.innerText = copyButtonLabel;
+  }, 700);
+}
+</script>
+</body>
+</html>

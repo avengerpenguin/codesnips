@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <title>Kafka with <span class="caps">AWS</span> <span class="caps">MSK</span> and an S3 archive via Kafka&nbsp;Connect | Code Snippets</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="/kafka-with-aws-msk-and-an-s3-archive-via-kafka-connect/" />
+    <meta property="og:title" content="Code Snippets - Kafka with <span class=&quot;caps&quot;>AWS</span> <span class=&quot;caps&quot;>MSK</span> and an S3 archive via Kafka&nbsp;Connect" />
+    <meta property="og:description" content="terraform { required_providers { kafka = { source = &quot;Mongey/kafka&quot; version = &quot;0.5.3&quot; } http = { source = &quot;hashicorp/http&quot; } } } variable &quot;vpc-id&quot; { type..." />
+
+
+
+  <meta name="description" content="terraform { required_providers { kafka = { source = &#34;Mongey/kafka&#34; version = &#34;0.5.3&#34; } http = { source = &#34;hashicorp/http&#34; } } } variable &#34;vpc-id&#34; { type = string } variable &#34;msk-cluster-name&#34; { type = string } variable &#34;archive-bucket-name&#34; { type = string } variable &#34;archived-topics&#34; { type = list(string) } data &#34;aws_vpc&#34; &#34;vpc&#34; { id = var.vpc-id } data &#34;aws_subnets&#34; &#34;private&#34; { filter { name = &#34;vpc-id&#34; values = [data.aws_vpc.vpc.id] } filter { # Assumes …" />
+
+
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="theme-color" content="#ffffff">
+
+
+
+
+
+
+
+    <link rel="stylesheet" href="/theme/css/awsm.css" />
+
+        <link rel="stylesheet" href="/theme/css/common.min.css?7590ec25">
+
+        <link rel="stylesheet" href="/theme/css/style.min.css?25dabd6c">
+
+
+</head>
+
+<body>
+    <header>
+        <h1><a href="/">Code Snippets</a></h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/search/">Search</a></li>
+            </ul>
+        </nav>
+    </header>
+	<main>
+    <h1>Kafka with <span class="caps">AWS</span> <span class="caps">MSK</span> and an S3 archive via Kafka&nbsp;Connect</h1>
+    
+
+    <div class="highlight"><pre><span></span><code><span class="nb">terraform</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nb">required_providers</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nb">kafka</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="na">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Mongey/kafka&quot;</span>
+<span class="w">            </span><span class="na">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;0.5.3&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="nb">http</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="na">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;hashicorp/http&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kr">variable</span><span class="w"> </span><span class="nv">&quot;vpc-id&quot;</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">    </span><span class="na">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">string</span><span class="w">  </span>
+<span class="p">}</span>
+
+<span class="kr">variable</span><span class="w"> </span><span class="nv">&quot;msk-cluster-name&quot;</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">    </span><span class="na">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span>
+<span class="p">}</span><span class="w">  </span>
+
+<span class="kr">variable</span><span class="w"> </span><span class="nv">&quot;archive-bucket-name&quot;</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">    </span><span class="na">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span>
+<span class="p">}</span><span class="w">  </span>
+
+<span class="kr">variable</span><span class="w"> </span><span class="nv">&quot;archived-topics&quot;</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">    </span><span class="na">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="kt">string</span><span class="p">)</span><span class="w">  </span>
+<span class="p">}</span>
+
+<span class="kr">data</span><span class="w"> </span><span class="nc">&quot;aws_vpc&quot;</span><span class="w"> </span><span class="nv">&quot;vpc&quot;</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">    </span><span class="na">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">var.vpc-id</span>
+<span class="p">}</span><span class="w">  </span>
+
+<span class="kr">data</span><span class="w"> </span><span class="nc">&quot;aws_subnets&quot;</span><span class="w"> </span><span class="nv">&quot;private&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nb">filter</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;vpc-id&quot;</span>
+<span class="w">        </span><span class="na">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="nv">data.aws_vpc.vpc.id</span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="nb">filter</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">        # Assumes private=1 is the tag for private subnets</span>
+<span class="c1">        # Adjust based on exact subnet setup</span>
+<span class="w">        </span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;private&quot;</span>
+<span class="w">        </span><span class="na">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;1&quot;</span><span class="p">]</span><span class="w">  </span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1"># Allows access from all traffic in VPC private subnets</span>
+<span class="c1"># Adjust if more fine-grained security is required</span>
+<span class="kr">module</span><span class="w"> </span><span class="nv">&quot;security_group&quot;</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">    </span><span class="na">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;terraform-aws-modules/security-group/aws&quot;</span><span class="w">  </span>
+<span class="w">    </span><span class="na">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;~&gt; 5.0&quot;</span><span class="w">  </span>
+
+<span class="w">    </span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;${var.msk-cluster-name}-access&quot;</span>
+<span class="w">    </span><span class="na">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Security group for MSK ${var.msk-cluster-name}&quot;</span>
+<span class="w">    </span><span class="na">vpc_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">data.aws_vpc.vpc.id</span>
+
+<span class="w">    </span><span class="na">ingress_cidr_blocks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="nv">data.aws_vpc.vpc.cidr_block</span><span class="p">]</span>
+<span class="w">    </span><span class="na">ingress_rules</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;kafka-broker-tcp&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;kafka-broker-tls-tcp&quot;</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="p">}</span><span class="w">  </span>
+
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_s3_bucket&quot;</span><span class="w"> </span><span class="nv">&quot;archive&quot;</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">    </span><span class="na">bucket</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">var.archive-bucket-name</span>
+<span class="p">}</span><span class="w">  </span>
+
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_s3_bucket_lifecycle_configuration&quot;</span><span class="w"> </span><span class="nv">&quot;expiration_policy&quot;</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">    </span><span class="na">bucket</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">aws_s3_bucket.archive.id</span>
+<span class="w">    </span><span class="nb">rule</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="na">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Enabled&quot;</span>
+
+<span class="w">        </span><span class="nb">expiration</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">            # Adjust as desired</span>
+<span class="w">            </span><span class="na">days</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">90</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="nb">filter</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="na">prefix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;topics/&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="na">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;topics&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kr">data</span><span class="w"> </span><span class="nc">&quot;http&quot;</span><span class="w"> </span><span class="nv">&quot;file&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">    # Note version needs updating when appropriate</span>
+<span class="w">    </span><span class="na">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;https://d1i4a15mxbxib1.cloudfront.net/api/plugins/confluentinc/kafka-connect-s3/versions/10.5.1/confluentinc-kafka-connect-s3-10.5.1.zip&quot;</span><span class="w">  </span>
+<span class="p">}</span>
+
+<span class="c1"># Pretend contents are sensitive to avoid it printing binary data</span>
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;local_sensitive_file&quot;</span><span class="w"> </span><span class="nv">&quot;confluentinc-kafka-connect-s3&quot;</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">    </span><span class="na">content_base64</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">data.http.file.response_body_base64</span>
+<span class="w">    </span><span class="na">filename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;confluentinc-kafka-connect-s3.zip&quot;</span>
+<span class="p">}</span>
+
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_s3_object&quot;</span><span class="w"> </span><span class="nv">&quot;s3_sink_msk_connect_custom_plugin_code&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="na">bucket</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">aws_s3_bucket.archive.id</span>
+<span class="w">    </span><span class="na">key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">local_sensitive_file.confluentinc-kafka-connect-s3.filename</span>
+<span class="w">    </span><span class="na">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">local_sensitive_file.confluentinc-kafka-connect-s3.filename</span>
+<span class="w">    </span><span class="na">etag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">local_sensitive_file.confluentinc-kafka-connect-s3.content_sha512</span>
+<span class="p">}</span><span class="w">  </span>
+
+<span class="kr">module</span><span class="w"> </span><span class="nv">&quot;msk_cluster&quot;</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">    </span><span class="na">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;terraform-aws-modules/msk-kafka-cluster/aws&quot;</span><span class="w">  </span>
+
+<span class="w">    </span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">var.msk-cluster-name</span><span class="w">  </span>
+<span class="w">    </span><span class="na">kafka_version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;3.2.0&quot;</span>
+<span class="c1">    # Adjust as desired</span>
+<span class="w">    </span><span class="na">number_of_broker_nodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4</span><span class="c1">  </span>
+
+<span class="c1">    # Adjust as desired so long as it matches no. of nodes</span>
+<span class="w">    </span><span class="na">broker_node_client_subnets</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="nv">data.aws_subnets.subnets.ids.0</span><span class="p">,</span><span class="w"> </span><span class="nv">data.aws_subnets.subnets.ids.1</span><span class="p">]</span>
+<span class="c1">    # Adjust as desired</span>
+<span class="w">    </span><span class="na">broker_node_instance_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;kafka.m5.large&quot;</span><span class="c1">  </span>
+<span class="c1">    # Adjust as desired</span>
+<span class="w">    </span><span class="nb">broker_node_storage_info</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nb">ebs_storage_info</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="na">volume_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="na">broker_node_security_groups</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w">  </span>
+<span class="w">        </span><span class="nv">module.security_group.security_group_id</span><span class="w">  </span>
+<span class="w">    </span><span class="p">]</span>
+
+<span class="w">    </span><span class="na">configuration_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;${var.msk-cluster-name}-config&quot;</span>
+<span class="c1">    # Adjust as desired</span>
+<span class="w">    </span><span class="nb">configuration_server_properties</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">        </span><span class="s2">&quot;auto.create.topics.enable&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">true</span><span class="w">  </span>
+<span class="w">        </span><span class="s2">&quot;default.replication.factor&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span>
+<span class="w">        </span><span class="s2">&quot;min.insync.replicas&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span>
+<span class="w">        </span><span class="s2">&quot;num.io.threads&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">12</span>
+<span class="w">        </span><span class="s2">&quot;num.network.threads&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10</span>
+<span class="w">        </span><span class="s2">&quot;num.partitions&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">24</span>
+<span class="w">        </span><span class="s2">&quot;num.replica.fetchers&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span>
+<span class="w">        </span><span class="s2">&quot;replica.lag.time.max.ms&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">30000</span>
+<span class="w">        </span><span class="s2">&quot;unclean.leader.election.enable&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">true</span>
+<span class="w">        </span><span class="s2">&quot;zookeeper.session.timeout.ms&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">18000</span>
+<span class="w">        </span><span class="s2">&quot;log.retention.hours&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span>
+<span class="w">    </span><span class="p">}</span><span class="w">  </span>
+
+<span class="w">    </span><span class="nb">connect_custom_plugins</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">        </span><span class="nb">s3_sink</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">            </span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;${var.msk-cluster-name}-s3-sink&quot;</span><span class="w">  </span>
+<span class="w">            </span><span class="na">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Custom Plugin for S3 Sink&quot;</span><span class="w">  </span>
+<span class="w">            </span><span class="na">content_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;ZIP&quot;</span>
+
+<span class="w">            </span><span class="na">s3_bucket_arn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">aws_s3_bucket.archive.arn</span>
+<span class="w">            </span><span class="na">s3_file_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">aws_s3_object.s3_sink_msk_connect_custom_plugin_code.key</span>
+
+<span class="w">            </span><span class="nb">timeouts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="na">create</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;60m&quot;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_mskconnect_connector&quot;</span><span class="w"> </span><span class="nv">&quot;s3_sink&quot;</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">    </span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;${var.msk-cluster-name}-archiver&quot;</span><span class="w">  </span>
+
+<span class="w">    </span><span class="na">kafkaconnect_version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;2.7.1&quot;</span><span class="w">  </span>
+
+<span class="w">    </span><span class="nb">capacity</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nb">provisioned_capacity</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="na">worker_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="c1">    # Assumes JSON data and partitioned by the hour</span>
+<span class="c1">    # See https://docs.confluent.io/kafka-connectors/s3-sink/current/configuration_options.html</span>
+<span class="w">    </span><span class="nb">connector_configuration</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">        </span><span class="s2">&quot;connector.class&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;io.confluent.connect.s3.S3SinkConnector&quot;</span><span class="w">  </span>
+<span class="w">        </span><span class="s2">&quot;s3.region&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;us-west-2&quot;</span><span class="p">,</span><span class="w">  </span>
+<span class="w">        </span><span class="s2">&quot;format.class&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;io.confluent.connect.s3.format.bytearray.ByteArrayFormat&quot;</span><span class="p">,</span><span class="w">  </span>
+<span class="w">        </span><span class="s2">&quot;value.converter&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;org.apache.kafka.connect.converters.ByteArrayConverter&quot;</span><span class="p">,</span><span class="w">  </span>
+<span class="w">        </span><span class="s2">&quot;format.bytearray.extension&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;.json&quot;</span><span class="p">,</span><span class="w">  </span>
+<span class="w">        </span><span class="s2">&quot;path.format&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;&#39;year&#39;=YYYY/&#39;month&#39;=MM/&#39;day&#39;=dd/&#39;hour&#39;=HH&quot;</span><span class="w">  </span>
+<span class="w">        </span><span class="s2">&quot;flush.size&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span><span class="w">  </span>
+<span class="w">        </span><span class="s2">&quot;schema.compatibility&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;NONE&quot;</span><span class="p">,</span><span class="w">  </span>
+<span class="w">        </span><span class="s2">&quot;topics&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">var.archived-topics</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;tasks.max&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span><span class="w">  </span>
+<span class="w">        </span><span class="s2">&quot;partitioner.class&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;io.confluent.connect.storage.partitioner.TimeBasedPartitioner&quot;</span><span class="p">,</span><span class="w">  </span>
+<span class="w">        </span><span class="s2">&quot;locale&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;en-GB&quot;</span><span class="p">,</span><span class="w">  </span>
+<span class="w">        </span><span class="s2">&quot;timezone&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;UTC&quot;</span><span class="p">,</span><span class="w">  </span>
+<span class="w">        </span><span class="s2">&quot;partition.duration.ms&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;3600000&quot;</span><span class="w">  </span>
+<span class="w">        </span><span class="s2">&quot;storage.class&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;io.confluent.connect.s3.storage.S3Storage&quot;</span><span class="p">,</span><span class="w">  </span>
+<span class="w">        </span><span class="s2">&quot;s3.bucket.name&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">aws_s3_bucket.archive.id</span><span class="p">,</span><span class="w">  </span>
+<span class="w">    </span><span class="p">}</span><span class="w">  </span>
+
+<span class="w">    </span><span class="nb">kafka_cluster</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nb">apache_kafka_cluster</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="na">bootstrap_servers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">module.msk_cluster.bootstrap_brokers_tls</span>
+
+<span class="w">            </span><span class="nb">vpc</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">                </span><span class="na">security_groups</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="nv">module.security_group.security_group_id</span><span class="p">]</span><span class="w">  </span>
+<span class="w">                </span><span class="na">subnets</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="nv">data.aws_subnets.subnets.ids.0</span><span class="p">,</span><span class="w"> </span><span class="nv">data.aws_subnets.subnets.ids.1</span><span class="p">]</span><span class="w">  </span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nb">kafka_cluster_client_authentication</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="na">authentication_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;NONE&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nb">kafka_cluster_encryption_in_transit</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="na">encryption_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;TLS&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nb">plugin</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">        </span><span class="nb">custom_plugin</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">            </span><span class="na">arn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">module.msk_cluster.connect_custom_plugins.s3_sink.arn</span><span class="w">  </span>
+<span class="w">            </span><span class="na">revision</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">module.msk_cluster.connect_custom_plugins.s3_sink.latest_revision</span><span class="w">  </span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nb">log_delivery</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">        </span><span class="nb">worker_log_delivery</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">            </span><span class="nb">cloudwatch_logs</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">                </span><span class="na">enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">true</span><span class="w">  </span>
+<span class="w">                </span><span class="na">log_group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">aws_cloudwatch_log_group.kafka-archiver-logs.name</span><span class="w">  </span>
+<span class="w">            </span><span class="p">}</span><span class="w">  </span>
+<span class="w">        </span><span class="p">}</span><span class="w">  </span>
+<span class="w">    </span><span class="p">}</span><span class="w">  </span>
+
+<span class="w">    </span><span class="na">service_execution_role_arn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">aws_iam_role.connector_role.arn</span><span class="w">  </span>
+<span class="p">}</span><span class="w">  </span>
+
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_cloudwatch_log_group&quot;</span><span class="w"> </span><span class="nv">&quot;kafka-archiver-logs&quot;</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">    </span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;${var.msk-cluster-name}-archiver&quot;</span>
+<span class="p">}</span><span class="w">  </span>
+
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_iam_role&quot;</span><span class="w"> </span><span class="nv">&quot;connector_role&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;${var.msk-cluster-name}-archiver-role&quot;</span>
+<span class="w">    </span><span class="na">assume_role_policy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">jsonencode</span><span class="p">({</span>
+<span class="w">        </span><span class="na">Version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;2012-10-17&quot;</span><span class="w">  </span>
+<span class="w">        </span><span class="na">Statement</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w">  </span>
+<span class="w">            </span><span class="p">{</span><span class="w">  </span>
+<span class="w">                </span><span class="s2">&quot;Effect&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Allow&quot;</span><span class="p">,</span><span class="w">  </span>
+<span class="w">                </span><span class="s2">&quot;Principal&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">                    </span><span class="s2">&quot;Service&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;kafkaconnect.amazonaws.com&quot;</span><span class="w">  </span>
+<span class="w">                </span><span class="p">},</span><span class="w">  </span>
+<span class="w">                </span><span class="s2">&quot;Action&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;sts:AssumeRole&quot;</span><span class="w">  </span>
+<span class="w">            </span><span class="p">}</span><span class="w">  </span>
+<span class="w">        </span><span class="p">]</span><span class="w">  </span>
+<span class="w">    </span><span class="p">})</span><span class="w">  </span>
+<span class="p">}</span>
+
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_iam_role_policy&quot;</span><span class="w"> </span><span class="nv">&quot;connector_role_policy&quot;</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">    </span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;${var.msk-cluster-name}-archiver-role-policy&quot;</span><span class="w">  </span>
+<span class="w">    </span><span class="na">role</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">aws_iam_role.connector_role.id</span><span class="w">  </span>
+<span class="w">    </span><span class="na">policy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">jsonencode</span><span class="p">({</span><span class="w">  </span>
+<span class="w">        </span><span class="na">Version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;2012-10-17&quot;</span><span class="w">  </span>
+<span class="w">        </span><span class="na">Statement</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w">  </span>
+<span class="w">            </span><span class="p">{</span><span class="w">  </span>
+<span class="w">                </span><span class="s2">&quot;Effect&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Allow&quot;</span><span class="p">,</span><span class="w">  </span>
+<span class="w">                </span><span class="s2">&quot;Action&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w">  </span>
+<span class="w">                    </span><span class="s2">&quot;s3:ListAllMyBuckets&quot;</span><span class="w">  </span>
+<span class="w">                </span><span class="p">],</span><span class="w">  </span>
+<span class="w">                </span><span class="s2">&quot;Resource&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;arn:aws:s3:::*&quot;</span><span class="w">  </span>
+<span class="w">            </span><span class="p">},</span><span class="w">  </span>
+<span class="w">            </span><span class="p">{</span><span class="w">  </span>
+<span class="w">                </span><span class="s2">&quot;Effect&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Allow&quot;</span><span class="p">,</span><span class="w">  </span>
+<span class="w">                </span><span class="s2">&quot;Action&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w">  </span>
+<span class="w">                    </span><span class="s2">&quot;s3:ListBucket&quot;</span><span class="p">,</span><span class="w">  </span>
+<span class="w">                    </span><span class="s2">&quot;s3:GetBucketLocation&quot;</span><span class="p">,</span><span class="w">  </span>
+<span class="w">                    </span><span class="s2">&quot;s3:DeleteObject&quot;</span><span class="w">  </span>
+<span class="w">                </span><span class="p">],</span><span class="w">  </span>
+<span class="w">                </span><span class="s2">&quot;Resource&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;arn:aws:s3:::*&quot;</span><span class="w">  </span>
+<span class="w">            </span><span class="p">},</span><span class="w">  </span>
+<span class="w">            </span><span class="p">{</span><span class="w">  </span>
+<span class="w">                </span><span class="s2">&quot;Effect&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Allow&quot;</span><span class="p">,</span><span class="w">  </span>
+<span class="w">                </span><span class="s2">&quot;Action&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w">  </span>
+<span class="w">                    </span><span class="s2">&quot;s3:PutObject&quot;</span><span class="p">,</span><span class="w">  </span>
+<span class="w">                    </span><span class="s2">&quot;s3:GetObject&quot;</span><span class="p">,</span><span class="w">  </span>
+<span class="w">                    </span><span class="s2">&quot;s3:AbortMultipartUpload&quot;</span><span class="p">,</span><span class="w">  </span>
+<span class="w">                    </span><span class="s2">&quot;s3:ListMultipartUploadParts&quot;</span><span class="p">,</span><span class="w">  </span>
+<span class="w">                    </span><span class="s2">&quot;s3:ListBucketMultipartUploads&quot;</span><span class="w">  </span>
+<span class="w">                </span><span class="p">],</span><span class="w">  </span>
+<span class="w">                </span><span class="s2">&quot;Resource&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;*&quot;</span><span class="w">  </span>
+<span class="w">            </span><span class="p">}</span><span class="w">  </span>
+<span class="w">        </span><span class="p">]</span><span class="w">  </span>
+<span class="w">    </span><span class="p">})</span><span class="w">  </span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+
+	</main>
+
+<script type="text/javascript">
+const copyButtonLabel = "Copy";
+
+let blocks = document.querySelectorAll("pre");
+
+blocks.forEach((block) => {
+  // only add button if browser supports Clipboard API
+  if (navigator.clipboard) {
+    let button = document.createElement("button");
+
+    button.innerText = copyButtonLabel;
+    block.appendChild(button);
+
+    button.addEventListener("click", async () => {
+      await copyCode(block, button);
+    });
+  }
+});
+
+async function copyCode(block, button) {
+  let code = block.querySelector("code");
+  let text = code.innerText;
+
+  await navigator.clipboard.writeText(text);
+
+  // visual feedback that task is completed
+  button.innerText = "Copied";
+
+  setTimeout(() => {
+    button.innerText = copyButtonLabel;
+  }, 700);
+}
+</script>
+</body>
+</html>

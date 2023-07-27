@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <title>CodeSnipsPro&nbsp;Home | Code Snippets</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="/_index/" />
+    <meta property="og:title" content="Code Snippets - CodeSnipsPro&nbsp;Home" />
+    <meta property="og:description" content="Working code snippets for the busy professional. Creating AWS MQ (RabbitMQ) with Terraform Deploying to Kubernetes (EKS) via Terraform Kafka with AWS MSK and an S3 archive via Kafka Connect..." />
+
+
+
+  <meta name="description" content="Working code snippets for the busy professional. Creating AWS MQ (RabbitMQ) with Terraform Deploying to Kubernetes (EKS) via Terraform Kafka with AWS MSK and an S3 archive via Kafka Connect Quarkus Multistage Dockerfile with Maven Quarkus Native Multistage Dockerfile with Maven Python Flask Dockerfile Using direnv on a Python project …" />
+
+
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="theme-color" content="#ffffff">
+
+
+
+
+
+
+
+    <link rel="stylesheet" href="/theme/css/awsm.css" />
+
+        <link rel="stylesheet" href="/theme/css/common.min.css?7590ec25">
+
+        <link rel="stylesheet" href="/theme/css/style.min.css?25dabd6c">
+
+
+</head>
+
+<body>
+    <header>
+        <h1><a href="/">Code Snippets</a></h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/search/">Search</a></li>
+            </ul>
+        </nav>
+    </header>
+	<main>
+    <h1>CodeSnipsPro&nbsp;Home</h1>
+    
+
+    <p>Working code snippets for the busy&nbsp;professional.</p>
+<ul>
+<li><a href="/creating-aws-mq-rabbitmq-with-terraform/">Creating <span class="caps">AWS</span> <span class="caps">MQ</span> (RabbitMQ) with&nbsp;Terraform</a></li>
+<li><a href="/deploying-to-kubernetes-eks-via-terraform/">Deploying to Kubernetes (<span class="caps">EKS</span>) via&nbsp;Terraform</a></li>
+<li><a href="/kafka-with-aws-msk-and-an-s3-archive-via-kafka-connect/">Kafka with <span class="caps">AWS</span> <span class="caps">MSK</span> and an S3 archive via Kafka&nbsp;Connect</a></li>
+<li><a href="/quarkus-multistage-dockerfile-with-maven/">Quarkus Multistage Dockerfile with&nbsp;Maven</a></li>
+<li><a href="/quarkus-native-multistage-dockerfile-with-maven/">Quarkus Native Multistage Dockerfile with&nbsp;Maven</a></li>
+<li><a href="/python-flask-dockerfile/">Python Flask&nbsp;Dockerfile</a></li>
+<li><a href="/using-direnv-on-a-python-project/">Using direnv on a Python&nbsp;project</a></li>
+</ul>
+
+
+
+	</main>
+
+<script type="text/javascript">
+const copyButtonLabel = "Copy";
+
+let blocks = document.querySelectorAll("pre");
+
+blocks.forEach((block) => {
+  // only add button if browser supports Clipboard API
+  if (navigator.clipboard) {
+    let button = document.createElement("button");
+
+    button.innerText = copyButtonLabel;
+    block.appendChild(button);
+
+    button.addEventListener("click", async () => {
+      await copyCode(block, button);
+    });
+  }
+});
+
+async function copyCode(block, button) {
+  let code = block.querySelector("code");
+  let text = code.innerText;
+
+  await navigator.clipboard.writeText(text);
+
+  // visual feedback that task is completed
+  button.innerText = "Copied";
+
+  setTimeout(() => {
+    button.innerText = copyButtonLabel;
+  }, 700);
+}
+</script>
+</body>
+</html>

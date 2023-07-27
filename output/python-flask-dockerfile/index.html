@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <title>Python Flask&nbsp;Dockerfile | Code Snippets</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="/python-flask-dockerfile/" />
+    <meta property="og:title" content="Code Snippets - Python Flask&nbsp;Dockerfile" />
+    <meta property="og:description" content="# syntax=docker/dockerfile:1 FROM python:3.8-slim-buster WORKDIR /python-docker # Copy just requirements first to create cached layer with deps COPY requirements.txt requirements.txt RUN pip3..." />
+
+
+
+  <meta name="description" content="# syntax=docker/dockerfile:1 FROM python:3.8-slim-buster WORKDIR /python-docker # Copy just requirements first to create cached layer with deps COPY requirements.txt requirements.txt RUN pip3 install -r requirements.txt # Now copy the rest of the source COPY . . CMD [ &#34;python3&#34;, &#34;-m&#34; , &#34;flask&#34;, &#34;run&#34;, &#34;--host=0.0.0.0&#34;] Notes …" />
+
+
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="theme-color" content="#ffffff">
+
+
+
+
+
+
+
+    <link rel="stylesheet" href="/theme/css/awsm.css" />
+
+        <link rel="stylesheet" href="/theme/css/common.min.css?7590ec25">
+
+        <link rel="stylesheet" href="/theme/css/style.min.css?25dabd6c">
+
+
+</head>
+
+<body>
+    <header>
+        <h1><a href="/">Code Snippets</a></h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/search/">Search</a></li>
+            </ul>
+        </nav>
+    </header>
+	<main>
+    <h1>Python Flask&nbsp;Dockerfile</h1>
+    
+
+    <div class="highlight"><pre><span></span><code><span class="c"># syntax=docker/dockerfile:1</span>
+
+<span class="k">FROM</span><span class="w"> </span><span class="s">python:3.8-slim-buster</span>
+
+<span class="k">WORKDIR</span><span class="w"> </span><span class="s">/python-docker</span>
+
+<span class="c"># Copy just requirements first to create cached layer with deps</span>
+<span class="k">COPY</span><span class="w"> </span>requirements.txt<span class="w"> </span>requirements.txt
+<span class="k">RUN</span><span class="w"> </span>pip3<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+
+<span class="c"># Now copy the rest of the source</span>
+<span class="k">COPY</span><span class="w"> </span>.<span class="w"> </span>.
+
+<span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">&quot;python3&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;-m&quot;</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;flask&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;run&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;--host=0.0.0.0&quot;</span><span class="p">]</span>
+</code></pre></div>
+
+<p>Notes:</p>
+<ul>
+<li>Creating a <code>.dockerignore</code> is recommended to prevent the <code>COPY . .</code> line from copying too much (e.g. if you have a <code>venv</code> in the working&nbsp;directory)</li>
+</ul>
+
+
+
+	</main>
+
+<script type="text/javascript">
+const copyButtonLabel = "Copy";
+
+let blocks = document.querySelectorAll("pre");
+
+blocks.forEach((block) => {
+  // only add button if browser supports Clipboard API
+  if (navigator.clipboard) {
+    let button = document.createElement("button");
+
+    button.innerText = copyButtonLabel;
+    block.appendChild(button);
+
+    button.addEventListener("click", async () => {
+      await copyCode(block, button);
+    });
+  }
+});
+
+async function copyCode(block, button) {
+  let code = block.querySelector("code");
+  let text = code.innerText;
+
+  await navigator.clipboard.writeText(text);
+
+  // visual feedback that task is completed
+  button.innerText = "Copied";
+
+  setTimeout(() => {
+    button.innerText = copyButtonLabel;
+  }, 700);
+}
+</script>
+</body>
+</html>

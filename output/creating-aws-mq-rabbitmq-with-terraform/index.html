@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <title>Creating <span class="caps">AWS</span> <span class="caps">MQ</span> (RabbitMQ) with&nbsp;Terraform | Code Snippets</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="/creating-aws-mq-rabbitmq-with-terraform/" />
+    <meta property="og:title" content="Code Snippets - Creating <span class=&quot;caps&quot;>AWS</span> <span class=&quot;caps&quot;>MQ</span> (RabbitMQ) with&nbsp;Terraform" />
+    <meta property="og:description" content="AWS Secrets Manager is used to store the RabbitMQ admin password. terraform { required_version = &quot;>= 1.2.0&quot; required_providers { aws = { source = &quot;hashicorp/aws&quot; version =..." />
+
+
+
+  <meta name="description" content="AWS Secrets Manager is used to store the RabbitMQ admin password. terraform { required_version = &#34;&gt;= 1.2.0&#34; required_providers { aws = { source = &#34;hashicorp/aws&#34; version = &#34;~&gt; 4.16&#34; } } provider &#34;aws&#34; { region = var.aws-region } data &#34;aws_vpc&#34; &#34;vpc&#34; { id = var.vpc-id } data &#34;aws_subnets&#34; &#34;private&#34; { filter { name = &#34;vpc-id&#34; values = [data.aws_vpc.vpc.id] } filter { # Assumes private=1 …" />
+
+
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="theme-color" content="#ffffff">
+
+
+
+
+
+
+
+    <link rel="stylesheet" href="/theme/css/awsm.css" />
+
+        <link rel="stylesheet" href="/theme/css/common.min.css?7590ec25">
+
+        <link rel="stylesheet" href="/theme/css/style.min.css?25dabd6c">
+
+
+</head>
+
+<body>
+    <header>
+        <h1><a href="/">Code Snippets</a></h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/search/">Search</a></li>
+            </ul>
+        </nav>
+    </header>
+	<main>
+    <h1>Creating <span class="caps">AWS</span> <span class="caps">MQ</span> (RabbitMQ) with&nbsp;Terraform</h1>
+    
+
+    <p><span class="caps">AWS</span> Secrets Manager is used to store the RabbitMQ admin&nbsp;password.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">terraform</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">    </span><span class="na">required_version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;&gt;= 1.2.0&quot;</span><span class="w">  </span>
+
+<span class="w">    </span><span class="nb">required_providers</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">        </span><span class="nb">aws</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">        </span><span class="na">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;hashicorp/aws&quot;</span><span class="w">  </span>
+<span class="w">        </span><span class="na">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;~&gt; 4.16&quot;</span><span class="w">  </span>
+<span class="w">    </span><span class="p">}</span><span class="w">  </span>
+<span class="p">}</span><span class="w">  </span>
+
+<span class="kr">provider</span><span class="w"> </span><span class="nv">&quot;aws&quot;</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">    </span><span class="na">region</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">var.aws-region</span>
+<span class="p">}</span><span class="w">  </span>
+
+<span class="kr">data</span><span class="w"> </span><span class="nc">&quot;aws_vpc&quot;</span><span class="w"> </span><span class="nv">&quot;vpc&quot;</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">    </span><span class="na">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">var.vpc-id</span>
+<span class="p">}</span><span class="w">  </span>
+
+<span class="kr">data</span><span class="w"> </span><span class="nc">&quot;aws_subnets&quot;</span><span class="w"> </span><span class="nv">&quot;private&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nb">filter</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;vpc-id&quot;</span>
+<span class="w">        </span><span class="na">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="nv">data.aws_vpc.vpc.id</span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="nb">filter</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">        # Assumes private=1 is the tag for private subnets</span>
+<span class="c1">        # Adjust based on exact subnet setup</span>
+<span class="w">        </span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;private&quot;</span>
+<span class="w">        </span><span class="na">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;1&quot;</span><span class="p">]</span><span class="w">  </span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span><span class="w">  </span>
+
+<span class="kr">data</span><span class="w"> </span><span class="nc">&quot;aws_secretsmanager_secret&quot;</span><span class="w"> </span><span class="nv">&quot;rabbitmq_secret&quot;</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">    </span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;rabbitmq-password&quot;</span>
+<span class="p">}</span>
+
+<span class="kr">data</span><span class="w"> </span><span class="nc">&quot;aws_secretsmanager_secret_version&quot;</span><span class="w"> </span><span class="nv">&quot;rabbitmq_secret_version&quot;</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">    </span><span class="na">secret_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">data.aws_secretsmanager_secret.rabbitmq_secret.id</span><span class="w">  </span>
+<span class="p">}</span><span class="w">  </span>
+
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_mq_broker&quot;</span><span class="w"> </span><span class="nv">&quot;rabbit&quot;</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">    </span><span class="na">broker_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">var.mq-broker-name</span>
+
+<span class="w">    </span><span class="na">engine_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;RabbitMQ&quot;</span>
+<span class="c1">    # Change to latest if out of date</span>
+<span class="w">    </span><span class="na">engine_version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;3.10.20&quot;</span><span class="w">  </span>
+<span class="w">    </span><span class="na">host_instance_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;mq.t3.micro&quot;</span><span class="w">  </span>
+<span class="w">    </span><span class="na">publicly_accessible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">false</span><span class="w">  </span>
+<span class="w">    </span><span class="na">security_groups</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">...</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="c1">    # Fixed to one subnet as SINGLE_INSTANCE is used</span>
+<span class="c1">    # Expand to use more or all subnets in a multi node setup</span>
+<span class="w">    </span><span class="na">subnet_ids</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="nv">data.aws_subnets.private.ids[0</span><span class="p">]]</span>
+<span class="w">    </span><span class="na">deployment_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;SINGLE_INSTANCE&quot;</span><span class="w">  </span>
+
+<span class="w">    </span><span class="nb">user</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">        </span><span class="na">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;admin&quot;</span>
+<span class="w">        </span><span class="na">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">jsondecode</span><span class="p">(</span><span class="nv">data.aws_secretsmanager_secret_version.rabbitmq_secret_version.secret_string</span><span class="p">)[</span><span class="s2">&quot;admin&quot;</span><span class="p">]</span><span class="w">  </span>
+<span class="w">    </span><span class="p">}</span><span class="w">  </span>
+<span class="p">}</span><span class="c1">  </span>
+
+<span class="c1"># Host and IP are not direct properties of aws_mq_broker</span>
+<span class="c1"># for RabbitMQ, so examples below show one way to extract</span>
+<span class="kr">module</span><span class="w"> </span><span class="nv">&quot;shell_ip&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="na">source</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Invicton-Labs/shell-resource/external&quot;</span>
+<span class="w">    </span><span class="na">command_unix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;dig +short $(echo $URL | cut -d&#39;/&#39; -f3 | cut -d&#39;:&#39; -f1) | grep -v &#39;\\.$&#39;&quot;</span><span class="w">  </span>
+<span class="w">    </span><span class="nb">environment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="na">URL</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">aws_mq_broker.mq.instances.0.console_url</span><span class="w">  </span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="na">depends_on</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="nv">aws_mq_broker.mq</span><span class="p">]</span>
+<span class="p">}</span><span class="w">  </span>
+
+<span class="kr">module</span><span class="w"> </span><span class="nv">&quot;shell_host&quot;</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">    </span><span class="na">source</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Invicton-Labs/shell-resource/external&quot;</span>
+<span class="w">    </span><span class="na">command_unix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;echo $URL | cut -d&#39;/&#39; -f3 | cut -d&#39;:&#39; -f1&quot;</span>
+<span class="w">    </span><span class="nb">environment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="na">URL</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">aws_mq_broker.mq.instances.0.console_url</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="na">depends_on</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="nv">aws_mq_broker.mq</span><span class="p">]</span><span class="w">  </span>
+<span class="p">}</span>
+
+<span class="kr">output</span><span class="w"> </span><span class="nv">&quot;mq-host&quot;</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">    </span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">module.shell_host.stdout</span><span class="w">  </span>
+<span class="p">}</span><span class="w">  </span>
+
+<span class="kr">output</span><span class="w"> </span><span class="nv">&quot;mq-ip&quot;</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">    </span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">module.shell_ip.stdout</span><span class="w">  </span>
+<span class="p">}</span><span class="w">  </span>
+
+<span class="kr">output</span><span class="w"> </span><span class="nv">&quot;mq-console&quot;</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">    </span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">aws_mq_broker.mq.instances.0.console_url</span><span class="w">  </span>
+<span class="p">}</span><span class="w">  </span>
+</code></pre></div>
+
+
+
+	</main>
+
+<script type="text/javascript">
+const copyButtonLabel = "Copy";
+
+let blocks = document.querySelectorAll("pre");
+
+blocks.forEach((block) => {
+  // only add button if browser supports Clipboard API
+  if (navigator.clipboard) {
+    let button = document.createElement("button");
+
+    button.innerText = copyButtonLabel;
+    block.appendChild(button);
+
+    button.addEventListener("click", async () => {
+      await copyCode(block, button);
+    });
+  }
+});
+
+async function copyCode(block, button) {
+  let code = block.querySelector("code");
+  let text = code.innerText;
+
+  await navigator.clipboard.writeText(text);
+
+  // visual feedback that task is completed
+  button.innerText = "Copied";
+
+  setTimeout(() => {
+    button.innerText = copyButtonLabel;
+  }, 700);
+}
+</script>
+</body>
+</html>

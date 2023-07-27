@@ -13,6 +13,8 @@ PLUGINS += ["voltaire.search"]
 TEMPLATE_PAGES = {
     "search.html": "search/index.html",
 }
+INDEX_SAVE_AS = ""
+
 
 STATIC_PATHS = ["../extra"]
 EXTRA_PATH_METADATA = {
