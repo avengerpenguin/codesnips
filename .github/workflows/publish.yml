@@ -19,8 +19,6 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-      - name: Download fonts
-        run: npm install
       - name: Build Pages Only
         run: PYTHONPATH=. invoke build
       - name: Build Pages and Publish
