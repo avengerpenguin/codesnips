@@ -1,3 +1,9 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
 body {
     header {
         text-align: center;
@@ -55,7 +61,7 @@ ol#post-list {
   margin-right: -0.15em;
 }
 
-pre[class*="language-"] {
+pre {
   position: relative;
   overflow: auto;
 
@@ -65,7 +71,7 @@ pre[class*="language-"] {
   border-radius: 10px;
 }
 
-pre[class*="language-"] button {
+pre button {
   position: absolute;
   top: 5px;
   right: 5px;
@@ -79,7 +85,7 @@ pre[class*="language-"] button {
   text-shadow: #c4c4c4 0 0 2px;
 }
 
-pre[class*="language-"] button:hover {
+pre button:hover {
   cursor: pointer;
   background-color: #bcbabb;
 }
