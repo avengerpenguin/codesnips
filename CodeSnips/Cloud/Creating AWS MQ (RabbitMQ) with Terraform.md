@@ -35,7 +35,7 @@ data "aws_subnets" "private" {
 		values = ["1"]  
 	}
 }  
-  
+
 data "aws_secretsmanager_secret" "rabbitmq_secret" {  
 	name = "rabbitmq-password"
 }
