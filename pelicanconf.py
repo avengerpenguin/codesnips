@@ -20,6 +20,8 @@ STATIC_PATHS = ["../extra"]
 EXTRA_PATH_METADATA = {
     "../extra/CNAME": {"path": "CNAME"},
 }
+WEBASSETS_CONFIG = [("PYSCSS_LOAD_PATHS", [str(Path.cwd() / "node_modules")])]
+
 
 MENUITEMS_START = (
     ("Home", "/"),

@@ -1,5 +1,5 @@
-import '@fontsource/roboto';
-import '@fontsource-variable/roboto-mono';
+@import "@fontsource/roboto/scss/mixins";
+@import "@fontsource-variable/roboto-mono/scss/mixins";
 
 body {
   font-family: 'Roboto', sans-serif;
