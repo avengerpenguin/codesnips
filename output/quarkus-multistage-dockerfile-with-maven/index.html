@@ -8,11 +8,11 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="/quarkus-multistage-dockerfile-with-maven/" />
     <meta property="og:title" content="Code Snippets - Quarkus Multistage Dockerfile with&nbsp;Maven" />
-    <meta property="og:description" content="--- tags: quarkus, java, maven, docker, dockerfile --- FROM quay.io/quarkus/centos-quarkus-maven:19.2.1 AS build COPY ./pom.xml ./pom.xml COPY ./src ./src RUN mvn -Pnative package -DskipTests..." />
+    <meta property="og:description" content="FROM quay.io/quarkus/centos-quarkus-maven:19.2.1 AS build COPY ./pom.xml ./pom.xml COPY ./src ./src RUN mvn -Pnative package -DskipTests FROM registry.access.redhat.com/ubi8/ubi-minimal..." />
 
 
 
-  <meta name="description" content="--- tags: quarkus, java, maven, docker, dockerfile --- FROM quay.io/quarkus/centos-quarkus-maven:19.2.1 AS build COPY ./pom.xml ./pom.xml COPY ./src ./src RUN mvn -Pnative package -DskipTests FROM registry.access.redhat.com/ubi8/ubi-minimal WORKDIR /work/ COPY --from=build /project/target/*-runner /work/application RUN chmod 775 /work …" />
+  <meta name="description" content="FROM quay.io/quarkus/centos-quarkus-maven:19.2.1 AS build COPY ./pom.xml ./pom.xml COPY ./src ./src RUN mvn -Pnative package -DskipTests FROM registry.access.redhat.com/ubi8/ubi-minimal WORKDIR /work/ COPY --from=build /project/target/*-runner /work/application RUN chmod 775 /work EXPOSE 8080 CMD [&#34;./application&#34;, &#34;-Dquarkus.http …" />
 
 
     <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon.png">
@@ -33,7 +33,7 @@
 
         <link rel="stylesheet" href="/theme/css/common.min.css?eb68b666">
 
-        <link rel="stylesheet" href="/theme/css/style.min.css?25dabd6c">
+        <link rel="stylesheet" href="/theme/css/style.min.css?e63f320c">
 
 
 </head>
@@ -52,12 +52,7 @@
     <h1>Quarkus Multistage Dockerfile with&nbsp;Maven</h1>
     
 
-    <div class="highlight"><pre><span></span><code><span class="nn">---</span>
-<span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">quarkus, java, maven, docker, dockerfile</span>
-<span class="nn">---</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="k">FROM</span><span class="w"> </span><span class="s">quay.io/quarkus/centos-quarkus-maven:19.2.1</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s">build</span><span class="w">  </span>
+    <div class="highlight"><pre><span></span><code><span class="k">FROM</span><span class="w"> </span><span class="s">quay.io/quarkus/centos-quarkus-maven:19.2.1</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s">build</span><span class="w">  </span>
 <span class="k">COPY</span><span class="w"> </span>./pom.xml<span class="w"> </span>./pom.xml<span class="w">  </span>
 <span class="k">COPY</span><span class="w"> </span>./src<span class="w"> </span>./src<span class="w">  </span>
 <span class="k">RUN</span><span class="w"> </span>mvn<span class="w"> </span>-Pnative<span class="w"> </span>package<span class="w"> </span>-DskipTests<span class="w">  </span>

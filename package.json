@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@fontsource-variable/roboto-mono": "^5.0.6",
+    "@fontsource/roboto": "^5.0.5"
+  }
+}
