@@ -45,7 +45,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_index.md",
+                "file": "Python/Using direnv on a Python project.md",
                 "mode": "source",
                 "source": false
               }
@@ -65,7 +65,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_index.md",
+                "file": "Python/Using direnv on a Python project.md",
                 "mode": "preview",
                 "source": false
               }
@@ -138,7 +138,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "_index.md",
+                "file": "Python/Using direnv on a Python project.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -155,7 +155,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "_index.md",
+                "file": "Python/Using direnv on a Python project.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -178,7 +178,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "_index.md"
+                "file": "Python/Using direnv on a Python project.md"
               }
             }
           }
@@ -201,14 +201,14 @@
   },
   "active": "de7aaefa697473dd",
   "lastOpenFiles": [
-    "Cloud/Kafka with AWS MSK and an S3 archive via Kafka Connect.md",
-    "Cloud/Deploying to Kubernetes (EKS) via Terraform.md",
-    "Cloud/Creating AWS MQ (RabbitMQ) with Terraform.md",
-    "_index.md",
-    "Java/Quarkus Multistage Dockerfile with Maven.md",
-    "Python/Using direnv on a Python project.md",
     "Python/Python Flask Dockerfile.md",
     "Java/Quarkus Native Multistage Dockerfile with Maven.md",
+    "Java/Quarkus Multistage Dockerfile with Maven.md",
+    "Cloud/Deploying to Kubernetes (EKS) via Terraform.md",
+    "Cloud/Kafka with AWS MSK and an S3 archive via Kafka Connect.md",
+    "_index.md",
+    "Cloud/Creating AWS MQ (RabbitMQ) with Terraform.md",
+    "Python/Using direnv on a Python project.md",
     "Cloud",
     "Python",
     "Java",

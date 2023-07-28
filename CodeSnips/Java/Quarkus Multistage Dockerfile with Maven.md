@@ -1,9 +1,8 @@
-```yaml
 ---
 tags: quarkus, java, maven, docker, dockerfile
 ---
 
-```
+
 ```dockerfile
 FROM quay.io/quarkus/centos-quarkus-maven:19.2.1 AS build  
 COPY ./pom.xml ./pom.xml  

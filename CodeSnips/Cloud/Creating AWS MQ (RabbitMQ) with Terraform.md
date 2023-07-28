@@ -87,14 +87,14 @@ module "shell_host" {
 }
   
 output "mq-host" {  
-	value = module.shell_host.stdout  
+	value = module.shell_host.stdout
 }  
   
 output "mq-ip" {  
-	value = module.shell_ip.stdout  
+	value = module.shell_ip.stdout
 }  
   
 output "mq-console" {  
-	value = aws_mq_broker.mq.instances.0.console_url  
+	value = aws_mq_broker.mq.instances.0.console_url
 }  
 ```
