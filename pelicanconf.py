@@ -2,7 +2,7 @@ from pathlib import Path
 
 from voltaire.pelican import *
 
-SITENAME = "CodeSnipsPro"
+SITENAME = "CodeSnips"
 PATH = "./CodeSnips"
 PAGE_PATHS = [""]
 ARTICLE_PATHS = ["articles"]

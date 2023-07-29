@@ -1,6 +1,6 @@
 save_as: index.html
 menu_title: Home
-title: Welcome to CodeSnipsPro
+title: Welcome to CodeSnips
 
 Working code snippets for the busy professional.
 

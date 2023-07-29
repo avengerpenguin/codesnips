@@ -1,4 +1,4 @@
 import voltaire
 
 
-namespace = voltaire.site()
+namespace = voltaire.site(domain="codesnips.pro")
