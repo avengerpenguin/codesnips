@@ -1,5 +1,5 @@
 ---
-tags: aws, eks, kubernetes, terraform, hcl, kubectl
+tags: AWS, EKS, Kubernetes, Terraform, HCL, kubectl
 ---
 
 Prerequisites:

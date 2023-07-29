@@ -1,5 +1,5 @@
 ---
-tags: aws, mq, aws mq, rabbitmq, terraform, hcl
+tags: AWS, MQ, RabbitMQ, Terraform, HCL
 ---
 
 AWS Secrets Manager is used to store the RabbitMQ admin password.

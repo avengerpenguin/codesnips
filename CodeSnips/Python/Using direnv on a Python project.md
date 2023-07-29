@@ -1,5 +1,5 @@
 ---
-tags: direnv, python
+tags: direnv, Python
 ---
 
 ## Prerequisites

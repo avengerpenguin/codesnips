@@ -1,4 +1,7 @@
 [
   "obsidian-git",
-  "folder-note-plugin"
+  "folder-note-plugin",
+  "obsidian-tagfolder",
+  "obsidian-frontmatter-tag-suggest",
+  "tag-wrangler"
 ]

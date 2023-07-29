@@ -1,3 +1,6 @@
+---
+tags: Kafka, AWS, MSK, S3, KafkaConnect
+---
 
 ```hcl
 terraform {

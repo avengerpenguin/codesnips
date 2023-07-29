@@ -1,5 +1,5 @@
 ---
-tags: quarkus, java, maven, docker, dockerfile
+tags: Quarkus, Java, Maven, Docker, Dockerfile
 ---
 
 
