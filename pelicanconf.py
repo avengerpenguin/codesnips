@@ -14,9 +14,7 @@ TEMPLATE_PAGES = {
     "search.html": "search/index.html",
 }
 INDEX_SAVE_AS = ""
-ARCHIVES_SAVE_AS = AUTHORS_SAVE_AS = CATEGORIES_SAVE_AS = ''
-TAGS_SAVE_AS = 'tags/index.html'
-TAG_SAVE_AS = '{slug}/index.html'
+ARCHIVES_SAVE_AS = AUTHORS_SAVE_AS = CATEGORIES_SAVE_AS = TAGS_SAVE_AS = ''
 
 STATIC_PATHS = [
     "../extra",

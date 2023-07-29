@@ -43,8 +43,12 @@
             "id": "de7aaefa697473dd",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "Java/Quarkus Multistage Dockerfile with Maven.md",
+                "mode": "source",
+                "source": false
+              }
             }
           }
         ],
@@ -114,6 +118,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "Java/Quarkus Multistage Dockerfile with Maven.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -130,6 +135,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "Java/Quarkus Multistage Dockerfile with Maven.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -151,7 +157,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "Java/Quarkus Multistage Dockerfile with Maven.md"
+              }
             }
           }
         ]
@@ -173,9 +181,9 @@
   },
   "active": "de7aaefa697473dd",
   "lastOpenFiles": [
+    "Python/Python Flask Dockerfile.md~",
     "Python/Python Flask Dockerfile.md",
     "_index.md",
-    "Python/Python Flask Dockerfile.md~",
     "Cloud/Creating AWS MQ (RabbitMQ) with Terraform.md",
     "Python/Using direnv on a Python project.md",
     "Java/Quarkus Native Multistage Dockerfile with Maven.md",
