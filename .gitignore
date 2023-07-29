@@ -1,3 +1,5 @@
 .direnv
 .idea
 venv
+output
+dist
