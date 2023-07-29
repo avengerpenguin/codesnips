@@ -18,12 +18,18 @@ body {
         background-color: $background-colour;
         padding: 1em;
         h1 {
+            font-style: italic;
+            font-size: 200%;
             margin: 0 auto;
-            background-image: url(../img/logo.png);
-            background-repeat: no-repeat;
-            height: 186px;
-            width: 845px;
-            text-indent: -9999px; /* This hide text*/;
+            a, a:visited {
+                color: white;
+            }
+            a:focus, a:hover {
+                color: $highlight-colour;
+            }
+            :before {
+                content: "<...> \ ";
+            }
         }
         nav {
             margin: 0 auto;
