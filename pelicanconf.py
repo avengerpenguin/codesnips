@@ -2,7 +2,7 @@ from pathlib import Path
 
 from voltaire.pelican import *
 
-SITENAME = "Code Snippets"
+SITENAME = "CodeSnipsPro"
 PATH = "./CodeSnips"
 PAGE_PATHS = [""]
 ARTICLE_PATHS = ["articles"]
@@ -16,11 +16,18 @@ TEMPLATE_PAGES = {
 INDEX_SAVE_AS = ""
 
 
-STATIC_PATHS = ["../extra"]
+STATIC_PATHS = [
+    "../extra",
+]
 EXTRA_PATH_METADATA = {
     "../extra/CNAME": {"path": "CNAME"},
 }
-WEBASSETS_CONFIG = [("PYSCSS_LOAD_PATHS", [str(Path.cwd() / "node_modules")])]
+
+WEBASSETS_CONFIG = [
+    ("SASS_LOAD_PATHS", [str(Path.cwd() / "node_modules")]),
+    ("SASS_BIN", str(Path.cwd() / "node_modules" / ".bin" / "sass")),
+    ("SASS_USE_SCSS", True),
+]
 
 
 MENUITEMS_START = (

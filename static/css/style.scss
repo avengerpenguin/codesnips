@@ -1,14 +1,43 @@
-@import "@fontsource/roboto/index.css";
-@import "@fontsource-variable/roboto-mono/index.css";
+$highlight-colour: #F3C315;
+$background-colour: #0050A4;
+
+@import "@fontsource/roboto";
+@import "@fontsource/alegreya-sans";
+@import "@fontsource-variable/roboto-mono";
 
 body {
-  font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    font-family: 'Alegreya Sans', sans-serif;
+
+    header {
+        max-width: 100%;
+        background-color: $background-colour;
+        padding: 1em;
+        h1 {
+            margin: 0 auto;
+            background-image: url(../img/logo.png);
+            background-repeat: no-repeat;
+            height: 186px;
+            width: 845px;
+            text-indent: -9999px; /* This hide text*/;
+        }
+        nav {
+            margin: 0 auto;
+            text-align: center;
+            font-size: 150%;
+            a, a:visited {
+                color: $highlight-colour;
+            }
+        }
+    }
+
+    code {
+        line-height: 125%;
+        font-family: 'Roboto Mono Variable', sans-serif;
+    }
 }
 
-pre {
-    line-height: 125%;
-    font-family: 'Roboto Mono Variable', sans-serif;
-}
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
 span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
 td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
