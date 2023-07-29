@@ -14,7 +14,9 @@ TEMPLATE_PAGES = {
     "search.html": "search/index.html",
 }
 INDEX_SAVE_AS = ""
-
+ARCHIVES_SAVE_AS = AUTHORS_SAVE_AS = CATEGORIES_SAVE_AS = ''
+TAGS_SAVE_AS = 'tags/index.html'
+TAG_SAVE_AS = '{slug}/index.html'
 
 STATIC_PATHS = [
     "../extra",
@@ -43,3 +45,4 @@ MENUITEMS_START = (
 )
 
 MARKDOWN['extension_configs']['markdown.extensions.codehilite'] = {'css_class': 'highlight'}
+MARKDOWN['extension_configs']['markdown.extensions.meta'] = {}

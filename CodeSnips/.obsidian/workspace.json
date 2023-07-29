@@ -43,12 +43,8 @@
             "id": "de7aaefa697473dd",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "_index.md",
-                "mode": "source",
-                "source": false
-              }
+              "type": "graph",
+              "state": {}
             }
           }
         ],
@@ -118,7 +114,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "_index.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -135,7 +130,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "_index.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -157,9 +151,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "_index.md"
-              }
+              "state": {}
             }
           }
         ]
@@ -181,14 +173,15 @@
   },
   "active": "de7aaefa697473dd",
   "lastOpenFiles": [
+    "Python/Python Flask Dockerfile.md",
+    "_index.md",
+    "Python/Python Flask Dockerfile.md~",
     "Cloud/Creating AWS MQ (RabbitMQ) with Terraform.md",
     "Python/Using direnv on a Python project.md",
-    "Python/Python Flask Dockerfile.md",
     "Java/Quarkus Native Multistage Dockerfile with Maven.md",
     "Java/Quarkus Multistage Dockerfile with Maven.md",
     "Cloud/Deploying to Kubernetes (EKS) via Terraform.md",
     "Cloud/Kafka with AWS MSK and an S3 archive via Kafka Connect.md",
-    "_index.md",
     "Cloud",
     "Python",
     "Java",
