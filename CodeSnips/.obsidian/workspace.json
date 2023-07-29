@@ -61,14 +61,26 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Quarkus Hello World Web app.md",
+                "file": "Python/Python.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "b2f5cb733041341a",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Plotting scatter graph of CSV data via matplotlib.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 5
       }
     ],
     "direction": "vertical"
@@ -142,7 +154,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Quarkus Hello World Web app.md",
+                "file": "Plotting scatter graph of CSV data via matplotlib.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -159,7 +171,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Quarkus Hello World Web app.md",
+                "file": "Plotting scatter graph of CSV data via matplotlib.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -182,7 +194,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Quarkus Hello World Web app.md"
+                "file": "Plotting scatter graph of CSV data via matplotlib.md"
               }
             }
           }
@@ -203,12 +215,13 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "3fbbcc0adfc5d0ea",
+  "active": "b2f5cb733041341a",
   "lastOpenFiles": [
-    "Java/Java.md",
-    "Quarkus Hello World Web app.md",
-    "Reading a file line-by-line in Python.md",
     "Python/Python.md",
+    "Plotting scatter graph of CSV data via matplotlib.md",
+    "Quarkus Hello World Web app.md",
+    "Java/Java.md",
+    "Reading a file line-by-line in Python.md",
     "Hello World Flask App.md",
     "Cloud/Deploying to Kubernetes (EKS) via Terraform.md",
     "Cloud/Kafka with AWS MSK and an S3 archive via Kafka Connect.md",
