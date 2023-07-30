@@ -3,7 +3,6 @@
 
 - [[Using direnv on a Python project]]
 
-
 ## Flask
 - [[Python Flask Dockerfile]]
 - [[Hello World Flask App]]

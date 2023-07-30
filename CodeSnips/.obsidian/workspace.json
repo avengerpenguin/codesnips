@@ -73,7 +73,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Plotting scatter graph of CSV data via matplotlib.md",
+                "file": "Java/Java.md",
                 "mode": "source",
                 "source": false
               }
@@ -154,7 +154,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Plotting scatter graph of CSV data via matplotlib.md",
+                "file": "Java/Java.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -171,7 +171,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Plotting scatter graph of CSV data via matplotlib.md",
+                "file": "Java/Java.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -194,7 +194,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Plotting scatter graph of CSV data via matplotlib.md"
+                "file": "Java/Java.md"
               }
             }
           }
@@ -217,12 +217,16 @@
   },
   "active": "b2f5cb733041341a",
   "lastOpenFiles": [
+    "Java/Quarkus Hello World Web app.md",
     "Python/Python.md",
-    "Plotting scatter graph of CSV data via matplotlib.md",
-    "Quarkus Hello World Web app.md",
+    "_index.md",
+    "Configs/Configs.md",
+    "Configs/Add key binding to delete currently-playing file in mpv.md",
+    "Configs",
+    "Python/Plotting scatter graph of CSV data via matplotlib.md",
+    "Python/Reading a file line-by-line in Python.md",
     "Java/Java.md",
-    "Reading a file line-by-line in Python.md",
-    "Hello World Flask App.md",
+    "Python/Hello World Flask App.md",
     "Cloud/Deploying to Kubernetes (EKS) via Terraform.md",
     "Cloud/Kafka with AWS MSK and an S3 archive via Kafka Connect.md",
     "Cloud/Creating AWS MQ (RabbitMQ) with Terraform.md",
@@ -230,7 +234,6 @@
     "Technologies/Quarkus.md",
     "Technologies/AWS.md",
     "Java/Quarkus Multistage Dockerfile with Maven.md",
-    "_index.md",
     "Python/Using direnv on a Python project.md",
     "Python/Python Flask Dockerfile.md",
     "Technologies",

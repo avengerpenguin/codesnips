@@ -9,3 +9,4 @@ Use the [search](/search/) or browse by category:
 - [[Cloud]]
 - [[Java]]
 - [[Python]]
+- [[Configs]]
