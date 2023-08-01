@@ -87,9 +87,21 @@
               }
             },
             "group": "4e737d7df8b54ad1"
+          },
+          {
+            "id": "9351f0e216809d78",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "conflict-files-obsidian-git.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
         ],
-        "currentTab": 6
+        "currentTab": 7
       },
       {
         "id": "4abe191f3a4ca338",
@@ -174,7 +186,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Python/Writing Python tests for a cookiecutter template.md",
+                "file": "conflict-files-obsidian-git.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -191,7 +203,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Python/Writing Python tests for a cookiecutter template.md",
+                "file": "conflict-files-obsidian-git.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -214,7 +226,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Python/Writing Python tests for a cookiecutter template.md"
+                "file": "conflict-files-obsidian-git.md"
               }
             }
           }
@@ -235,10 +247,11 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "76ece2d2cd82c5d6",
+  "active": "9351f0e216809d78",
   "lastOpenFiles": [
-    "Python/Python.md",
     "Python/Writing Python tests for a cookiecutter template.md",
+    "conflict-files-obsidian-git.md",
+    "Python/Python.md",
     "Configs/Add Homebrew bin path on Mac to emacs $PATH.md",
     "Configs/Configs.md",
     "Configs/Adding volume control keybindings to Xmonad.md",
@@ -252,7 +265,6 @@
     "Python/Hello World Flask App.md",
     "Java/Quarkus Hello World Web app.md",
     "Configs",
-    "conflict-files-obsidian-git.md",
     "Reading a file line-by-line in Python.md",
     "Quarkus Hello World Web app.md",
     "Hello World Flask App.md",
