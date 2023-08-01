@@ -1,4 +1,5 @@
 save_as: index.html
+slug: /
 menu_title: Home
 title: Welcome to CodeSnips
 
