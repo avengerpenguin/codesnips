@@ -2,6 +2,7 @@
 ## Tools
 
 - [[Using direnv on a Python project]]
+- [[Writing Python tests for a cookiecutter template]]
 
 ## Flask
 - [[Python Flask Dockerfile]]
