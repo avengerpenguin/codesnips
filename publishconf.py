@@ -1,4 +1,4 @@
-from pelicanconf import *
+from pelicanconf import *  # noqa
 
 SITEURL = "https://codesnips.pro"
 RELATIVE_URLS = False
