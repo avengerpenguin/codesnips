@@ -45,32 +45,44 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Python/Using direnv on a Python project.md",
+                "file": "Configs/Configs.md",
                 "mode": "source",
                 "source": false
               }
-            },
-            "group": "379ee0b5a6c1e877"
-          }
-        ],
-        "currentTab": 3
-      },
-      {
-        "id": "c9cf743e39a02e39",
-        "type": "tabs",
-        "children": [
+            }
+          },
           {
-            "id": "bb30a6e881d96276",
+            "id": "c62ba40dcfab08f3",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Python/Using direnv on a Python project.md",
+                "file": "Adding volume control keybindings to Xmonad.md",
+                "mode": "source",
+                "source": false
+              }
+            },
+            "group": "4fe4d8ab1b1dc5ba"
+          }
+        ],
+        "currentTab": 4
+      },
+      {
+        "id": "eb12487d5ac71792",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "87e80aebbf08d0fc",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Adding volume control keybindings to Xmonad.md",
                 "mode": "preview",
                 "source": false
               }
             },
-            "group": "379ee0b5a6c1e877"
+            "group": "4fe4d8ab1b1dc5ba"
           }
         ]
       }
@@ -138,7 +150,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Python/Using direnv on a Python project.md",
+                "file": "Adding volume control keybindings to Xmonad.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -155,7 +167,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Python/Using direnv on a Python project.md",
+                "file": "Adding volume control keybindings to Xmonad.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -178,7 +190,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Python/Using direnv on a Python project.md"
+                "file": "Adding volume control keybindings to Xmonad.md"
               }
             }
           }
@@ -199,17 +211,21 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "de7aaefa697473dd",
+  "active": "c62ba40dcfab08f3",
   "lastOpenFiles": [
+    "Configs/Configs.md",
+    "Adding volume control keybindings to Xmonad.md",
+    "Adding volume up/down keybindings to Xmonad.md",
+    "Adding volume up",
+    "Configs/Setting the font in xterm.md",
+    "Configs/Add key binding to delete currently-playing file in mpv.md",
+    "Python/Using direnv on a Python project.md",
     "Python/Reading a file line-by-line in Python.md",
     "Python/Plotting scatter graph of CSV data via matplotlib.md",
     "Python/Hello World Flask App.md",
     "Java/Quarkus Hello World Web app.md",
-    "Configs/Configs.md",
-    "Configs/Add key binding to delete currently-playing file in mpv.md",
     "Configs",
     "conflict-files-obsidian-git.md",
-    "Python/Using direnv on a Python project.md",
     "Reading a file line-by-line in Python.md",
     "Quarkus Hello World Web app.md",
     "Hello World Flask App.md",

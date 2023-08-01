@@ -1,3 +1,7 @@
+Config to bind Ctrl+DEL to mark a video for deletion while watching it. Press again to unmark it. Deletion is performed when mpv exits.
+
+This is useful for sorting through e.g. videos and photos taken on a phone where you want to clear out things you don't want to keep but do so while playing/viewing them.
+
 Save as e.g. `$HOME/.config/mpv/scripts/delete_file.lua`
 
 ```lua
