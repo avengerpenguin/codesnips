@@ -8,14 +8,6 @@
         "type": "tabs",
         "children": [
           {
-            "id": "6e4bd2f0d26d0e3d",
-            "type": "leaf",
-            "state": {
-              "type": "empty",
-              "state": {}
-            }
-          },
-          {
             "id": "59bfd415844f3ab9",
             "type": "leaf",
             "state": {
@@ -33,70 +25,62 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Cloud/Creating AWS MQ (RabbitMQ) with Terraform.md",
+                "file": "Python/Python.md",
                 "mode": "source",
                 "source": false
               }
             }
           },
           {
-            "id": "de7aaefa697473dd",
+            "id": "b95656f242d4c029",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Configs/Configs.md",
+                "file": "Python/Python.md",
                 "mode": "source",
                 "source": false
               }
             }
           },
           {
-            "id": "c62ba40dcfab08f3",
+            "id": "dd0d94e9604419fc",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Configs/Configs.md",
+                "file": "Java/Java.md",
                 "mode": "source",
                 "source": false
               }
             }
           },
           {
-            "id": "c21fa2a2c2bb9991",
+            "id": "3fbbcc0adfc5d0ea",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Configs/Add Homebrew bin path on Mac to emacs $PATH.md",
+                "file": "Python/Python.md",
                 "mode": "source",
                 "source": false
               }
-            },
-            "group": "93f28e127eb67e01"
+            }
+          },
+          {
+            "id": "b2f5cb733041341a",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Java/Java.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
         ],
         "currentTab": 5
-      },
-      {
-        "id": "f47ed61986138ffd",
-        "type": "tabs",
-        "children": [
-          {
-            "id": "cd83ad4750f7d1c6",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Configs/Add Homebrew bin path on Mac to emacs $PATH.md",
-                "mode": "preview",
-                "source": false
-              }
-            },
-            "group": "93f28e127eb67e01"
-          }
-        ]
       }
     ],
     "direction": "vertical"
@@ -125,7 +109,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "tag:#EKS",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -139,6 +123,14 @@
             "type": "leaf",
             "state": {
               "type": "bookmarks",
+              "state": {}
+            }
+          },
+          {
+            "id": "55ce205aca63bca5",
+            "type": "leaf",
+            "state": {
+              "type": "tagfolder-view",
               "state": {}
             }
           }
@@ -162,7 +154,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Configs/Add Homebrew bin path on Mac to emacs $PATH.md",
+                "file": "Java/Java.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -179,7 +171,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Configs/Add Homebrew bin path on Mac to emacs $PATH.md",
+                "file": "Java/Java.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -202,16 +194,16 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Configs/Add Homebrew bin path on Mac to emacs $PATH.md"
+                "file": "Java/Java.md"
               }
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -223,35 +215,33 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "c21fa2a2c2bb9991",
+  "active": "b2f5cb733041341a",
   "lastOpenFiles": [
-    "Configs/Configs.md",
-    "Configs/Add Homebrew bin path on Mac to emacs $PATH.md",
-    "Configs/Adding volume control keybindings to Xmonad.md",
-    "Adding volume up/down keybindings to Xmonad.md",
-    "Adding volume up",
     "Configs/Setting the font in xterm.md",
-    "Configs/Add key binding to delete currently-playing file in mpv.md",
-    "Python/Using direnv on a Python project.md",
-    "Python/Reading a file line-by-line in Python.md",
-    "Python/Plotting scatter graph of CSV data via matplotlib.md",
-    "Python/Hello World Flask App.md",
+    "Configs/Adding volume control keybindings to Xmonad.md",
+    "Configs/Add Homebrew bin path on Mac to emacs $PATH.md",
     "Java/Quarkus Hello World Web app.md",
-    "Configs",
-    "conflict-files-obsidian-git.md",
-    "Reading a file line-by-line in Python.md",
-    "Quarkus Hello World Web app.md",
-    "Hello World Flask App.md",
     "Python/Python.md",
+    "_index.md",
+    "Configs/Configs.md",
+    "Configs/Add key binding to delete currently-playing file in mpv.md",
+    "Configs",
+    "Python/Plotting scatter graph of CSV data via matplotlib.md",
+    "Python/Reading a file line-by-line in Python.md",
     "Java/Java.md",
-    "Cloud/Cloud.md",
-    "Python/Python Flask Dockerfile.md",
-    "Java/Quarkus Native Multistage Dockerfile with Maven.md",
-    "Java/Quarkus Multistage Dockerfile with Maven.md",
+    "Python/Hello World Flask App.md",
     "Cloud/Deploying to Kubernetes (EKS) via Terraform.md",
     "Cloud/Kafka with AWS MSK and an S3 archive via Kafka Connect.md",
-    "_index.md",
     "Cloud/Creating AWS MQ (RabbitMQ) with Terraform.md",
+    "Cloud/Cloud.md",
+    "Technologies/Quarkus.md",
+    "Technologies/AWS.md",
+    "Java/Quarkus Multistage Dockerfile with Maven.md",
+    "Python/Using direnv on a Python project.md",
+    "Python/Python Flask Dockerfile.md",
+    "Technologies",
+    "Python/Python Flask Dockerfile.md~",
+    "Java/Quarkus Native Multistage Dockerfile with Maven.md",
     "Cloud",
     "Python",
     "Java",
