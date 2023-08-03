@@ -11,3 +11,4 @@ Use the [search](/search/) or browse by category:
 - [[Java]]
 - [[Python]]
 - [[Configs]]
+- [[PHP]]
