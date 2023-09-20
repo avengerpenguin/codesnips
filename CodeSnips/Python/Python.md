@@ -12,3 +12,6 @@
 ## Data Science
 
 - [[Plotting scatter graph of CSV data via matplotlib]]
+- [[Using GeoPandas to create points from latitude and longitude]]
+- [[Using GeoPandas to group points into lines or paths]]
+
