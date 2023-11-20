@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <title>Plotting scatter graph of <span class="caps">CSV</span> data via&nbsp;matplotlib | CodeSnips</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://codesnips.pro/plotting-scatter-graph-of-csv-data-via-matplotlib/" />
+    <meta property="og:title" content="CodeSnips - Plotting scatter graph of <span class=&quot;caps&quot;>CSV</span> data via&nbsp;matplotlib" />
+    <meta property="og:description" content="import pandas as pd import matplotlib.pyplot as plt # Read data from CSV file into a pandas DataFrame data = pd.read_csv('data.csv') # Extract x and y values from the DataFrame x_values =..." />
+
+    <link href="https://codesnips.pro/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="CodeSnips Full Atom Feed" />
+
+
+  <meta name="description" content="import pandas as pd import matplotlib.pyplot as plt # Read data from CSV file into a pandas DataFrame data = pd.read_csv(&#39;data.csv&#39;) # Extract x and y values from the DataFrame x_values = data[&#39;x_values&#39;] y_values = data[&#39;y_values&#39;] # Create the scatter plot plt.scatter(x_values, y_values) # Set labels and title plt …" />
+
+
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="theme-color" content="#ffffff">
+
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3CJVVQX70Y"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-3CJVVQX70Y');
+    </script>
+
+
+
+
+    <link rel="stylesheet" href="https://codesnips.pro/theme/css/awsm.css" />
+
+        <link rel="stylesheet" href="https://codesnips.pro/theme/css/common.min.css?64950869">
+
+        <link rel="stylesheet" href="https://codesnips.pro/theme/css/style.min.css?be5fa9a0">
+
+
+</head>
+
+<body>
+    <header>
+        <h1><a href="https://codesnips.pro/">CodeSnips</a></h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/search/">Search</a></li>
+            </ul>
+        </nav>
+    </header>
+	<main>
+    <h1>Plotting scatter graph of <span class="caps">CSV</span> data via&nbsp;matplotlib</h1>
+    
+
+    <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Read data from CSV file into a pandas DataFrame</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data.csv&#39;</span><span class="p">)</span>
+
+<span class="c1"># Extract x and y values from the DataFrame</span>
+<span class="n">x_values</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;x_values&#39;</span><span class="p">]</span>
+<span class="n">y_values</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;y_values&#39;</span><span class="p">]</span>
+
+<span class="c1"># Create the scatter plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_values</span><span class="p">,</span> <span class="n">y_values</span><span class="p">)</span>
+
+<span class="c1"># Set labels and title</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;X-axis&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Y-axis&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Scatter Plot&#39;</span><span class="p">)</span>
+
+<span class="c1"># Show the plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+
+
+<div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+      this.page.url = 'https://codesnips.pro/plotting-scatter-graph-of-csv-data-via-matplotlib/';
+      this.page.identifier = 'plotting-scatter-graph-of-csv-data-via-matplotlib';
+    };
+
+    (function() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://codesnips-comments.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+	</main>
+
+<script type="text/javascript">
+const copyButtonLabel = "Copy";
+
+let blocks = document.querySelectorAll("pre");
+
+blocks.forEach((block) => {
+  // only add button if browser supports Clipboard API
+  if (navigator.clipboard) {
+    let button = document.createElement("button");
+
+    button.innerText = copyButtonLabel;
+    block.appendChild(button);
+
+    button.addEventListener("click", async () => {
+      await copyCode(block, button);
+    });
+  }
+});
+
+async function copyCode(block, button) {
+  let code = block.querySelector("code");
+  let text = code.innerText;
+
+  await navigator.clipboard.writeText(text);
+
+  // visual feedback that task is completed
+  button.innerText = "Copied";
+
+  setTimeout(() => {
+    button.innerText = copyButtonLabel;
+  }, 2000);
+}
+</script>
+</body>
+</html>

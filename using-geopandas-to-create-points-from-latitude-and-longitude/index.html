@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <title>Using GeoPandas to create points from latitude and&nbsp;longitude | CodeSnips</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://codesnips.pro/using-geopandas-to-create-points-from-latitude-and-longitude/" />
+    <meta property="og:title" content="CodeSnips - Using GeoPandas to create points from latitude and&nbsp;longitude" />
+    <meta property="og:description" content="import pandas as pd import geopandas as gpd # Read CSV with columns &quot;lon&quot; and &quot;lat&quot; as floats df = pd.read_csv('my-csev.csv') df = gpd.GeoDataFrame( df,..." />
+
+    <link href="https://codesnips.pro/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="CodeSnips Full Atom Feed" />
+
+
+  <meta name="description" content="import pandas as pd import geopandas as gpd # Read CSV with columns &#34;lon&#34; and &#34;lat&#34; as floats df = pd.read_csv(&#39;my-csev.csv&#39;) df = gpd.GeoDataFrame( df, geometry=gpd.points_from_xy(df.lon, df.lat), crs=&#34;EPSG:4326&#34; ) # Optionally (saves memory) drop original lat/lon columns df.drop(&#39;lon&#39;, axis=1, inplace …" />
+
+
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="theme-color" content="#ffffff">
+
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3CJVVQX70Y"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-3CJVVQX70Y');
+    </script>
+
+
+
+
+    <link rel="stylesheet" href="https://codesnips.pro/theme/css/awsm.css" />
+
+        <link rel="stylesheet" href="https://codesnips.pro/theme/css/common.min.css?64950869">
+
+        <link rel="stylesheet" href="https://codesnips.pro/theme/css/style.min.css?be5fa9a0">
+
+
+</head>
+
+<body>
+    <header>
+        <h1><a href="https://codesnips.pro/">CodeSnips</a></h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/search/">Search</a></li>
+            </ul>
+        </nav>
+    </header>
+	<main>
+    <h1>Using GeoPandas to create points from latitude and&nbsp;longitude</h1>
+    
+
+    <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>  
+
+<span class="c1"># Read CSV with columns &quot;lon&quot; and &quot;lat&quot; as floats</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;my-csev.csv&#39;</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">,</span> <span class="n">geometry</span><span class="o">=</span><span class="n">gpd</span><span class="o">.</span><span class="n">points_from_xy</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">lon</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">lat</span><span class="p">),</span> <span class="n">crs</span><span class="o">=</span><span class="s2">&quot;EPSG:4326&quot;</span>  
+<span class="p">)</span>
+<span class="c1"># Optionally (saves memory) drop original lat/lon columns</span>
+<span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  
+<span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  
+</code></pre></div>
+
+<p>See also <a href="/using-geopandas-to-group-points-into-lines-or-paths/">Using GeoPandas to group points into lines or&nbsp;paths</a></p>
+
+
+<div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+      this.page.url = 'https://codesnips.pro/using-geopandas-to-create-points-from-latitude-and-longitude/';
+      this.page.identifier = 'using-geopandas-to-create-points-from-latitude-and-longitude';
+    };
+
+    (function() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://codesnips-comments.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+	</main>
+
+<script type="text/javascript">
+const copyButtonLabel = "Copy";
+
+let blocks = document.querySelectorAll("pre");
+
+blocks.forEach((block) => {
+  // only add button if browser supports Clipboard API
+  if (navigator.clipboard) {
+    let button = document.createElement("button");
+
+    button.innerText = copyButtonLabel;
+    block.appendChild(button);
+
+    button.addEventListener("click", async () => {
+      await copyCode(block, button);
+    });
+  }
+});
+
+async function copyCode(block, button) {
+  let code = block.querySelector("code");
+  let text = code.innerText;
+
+  await navigator.clipboard.writeText(text);
+
+  // visual feedback that task is completed
+  button.innerText = "Copied";
+
+  setTimeout(() => {
+    button.innerText = copyButtonLabel;
+  }, 2000);
+}
+</script>
+</body>
+</html>
