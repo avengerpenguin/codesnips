@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <title>Writing Python tests for a cookiecutter&nbsp;template | CodeSnips</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://codesnips.pro/writing-python-tests-for-a-cookiecutter-template/" />
+    <meta property="og:title" content="CodeSnips - Writing Python tests for a cookiecutter&nbsp;template" />
+    <meta property="og:description" content="Allow CI tests for a cookiecutter repo with some basic tests. Uses pytest-cookies so install that first: pip install pytest-cookies Tests below are for a Java project template (using Gradle)...." />
+
+    <link href="https://codesnips.pro/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="CodeSnips Full Atom Feed" />
+
+
+  <meta name="description" content="Allow CI tests for a cookiecutter repo with some basic tests. Uses pytest-cookies so install that first: pip install pytest-cookies Tests below are for a Java project template (using Gradle). Adjust as desired. import os import shlex import subprocess from contextlib import contextmanager from cookiecutter.utils import rmtree @contextmanager def …" />
+
+
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="theme-color" content="#ffffff">
+
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3CJVVQX70Y"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-3CJVVQX70Y');
+    </script>
+
+
+
+
+    <link rel="stylesheet" href="https://codesnips.pro/theme/css/awsm.css" />
+
+        <link rel="stylesheet" href="https://codesnips.pro/theme/css/common.min.css?64950869">
+
+        <link rel="stylesheet" href="https://codesnips.pro/theme/css/style.min.css?be5fa9a0">
+
+
+</head>
+
+<body>
+    <header>
+        <h1><a href="https://codesnips.pro/">CodeSnips</a></h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/search/">Search</a></li>
+            </ul>
+        </nav>
+    </header>
+	<main>
+    <h1>Writing Python tests for a cookiecutter&nbsp;template</h1>
+    
+
+    <p>Allow <span class="caps">CI</span> tests for a cookiecutter repo with some basic tests. Uses <code>pytest-cookies</code> so install that&nbsp;first:</p>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>pytest-cookies
+</code></pre></div>
+
+<p>Tests below are for a Java project template (using Gradle). Adjust as&nbsp;desired.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>  
+<span class="kn">import</span> <span class="nn">shlex</span>  
+<span class="kn">import</span> <span class="nn">subprocess</span>  
+<span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>  
+<span class="kn">from</span> <span class="nn">cookiecutter.utils</span> <span class="kn">import</span> <span class="n">rmtree</span>  
+
+
+<span class="nd">@contextmanager</span>  
+<span class="k">def</span> <span class="nf">run_cookiecutter</span><span class="p">(</span><span class="n">cookies</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Runs cookiecutter on entering `with` block.</span>
+<span class="sd">    Deletes files when leaving `with` context  </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">cookies</span><span class="o">.</span><span class="n">bake</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  
+    <span class="k">try</span><span class="p">:</span>  
+        <span class="k">yield</span> <span class="n">result</span>  
+    <span class="k">finally</span><span class="p">:</span>  
+        <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">project</span><span class="p">:</span>  
+            <span class="n">rmtree</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">project</span><span class="p">))</span>  
+
+
+<span class="nd">@contextmanager</span>  
+<span class="k">def</span> <span class="nf">inside_dir</span><span class="p">(</span><span class="n">dirpath</span><span class="p">):</span>  
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;  </span>
+<span class="sd">    Changes to given directory temporarily.</span>
+<span class="sd">    &quot;&quot;&quot;</span>  
+    <span class="n">old_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>  
+    <span class="k">try</span><span class="p">:</span>  
+        <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">dirpath</span><span class="p">)</span>  
+        <span class="k">yield</span>  
+    <span class="k">finally</span><span class="p">:</span>  
+        <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">old_path</span><span class="p">)</span>  
+
+
+<span class="k">def</span> <span class="nf">run_inside_dir</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">dirpath</span><span class="p">):</span>  
+    <span class="k">with</span> <span class="n">inside_dir</span><span class="p">(</span><span class="n">dirpath</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">(</span><span class="n">shlex</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">command</span><span class="p">))</span>  
+
+
+<span class="k">def</span> <span class="nf">test_bake_with_defaults</span><span class="p">(</span><span class="n">cookies</span><span class="p">):</span>  
+    <span class="k">with</span> <span class="n">run_cookiecutter</span><span class="p">(</span><span class="n">cookies</span><span class="p">)</span> <span class="k">as</span> <span class="n">result</span><span class="p">:</span>  
+        <span class="k">assert</span> <span class="n">result</span><span class="o">.</span><span class="n">exception</span> <span class="ow">is</span> <span class="kc">None</span>  
+        <span class="k">assert</span> <span class="n">result</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">isdir</span><span class="p">()</span>  
+        <span class="k">assert</span> <span class="n">result</span><span class="o">.</span><span class="n">exit_code</span> <span class="o">==</span> <span class="mi">0</span>  
+
+        <span class="n">found_toplevel_files</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">basename</span>
+            <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">listdir</span><span class="p">()</span>
+        <span class="p">]</span>
+        <span class="k">assert</span> <span class="s2">&quot;build.gradle.kts&quot;</span> <span class="ow">in</span> <span class="n">found_toplevel_files</span>  
+
+
+<span class="k">def</span> <span class="nf">test_bake_and_run_build</span><span class="p">(</span><span class="n">cookies</span><span class="p">):</span>  
+    <span class="k">with</span> <span class="n">run_cookiecutter</span><span class="p">(</span><span class="n">cookies</span><span class="p">)</span> <span class="k">as</span> <span class="n">result</span><span class="p">:</span>  
+        <span class="k">assert</span> <span class="n">result</span><span class="o">.</span><span class="n">exception</span> <span class="ow">is</span> <span class="kc">None</span>  
+        <span class="k">assert</span> <span class="n">result</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">isdir</span><span class="p">()</span>  
+        <span class="k">assert</span> <span class="n">run_inside_dir</span><span class="p">(</span><span class="s2">&quot;gradle build&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">project</span><span class="p">))</span> <span class="o">==</span> <span class="mi">0</span> 
+
+
+<span class="k">def</span> <span class="nf">test_setting_project_name</span><span class="p">(</span><span class="n">cookies</span><span class="p">):</span>  
+    <span class="n">properties</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;repo_name&quot;</span><span class="p">:</span> <span class="s2">&quot;foo-service&quot;</span><span class="p">}</span>  
+    <span class="k">with</span> <span class="n">run_cookiecutter</span><span class="p">(</span><span class="n">cookies</span><span class="p">,</span> <span class="n">extra_context</span><span class="o">=</span><span class="n">properties</span><span class="p">)</span> <span class="k">as</span> <span class="n">result</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="n">result</span><span class="o">.</span><span class="n">exception</span> <span class="ow">is</span> <span class="kc">None</span>  
+        <span class="k">assert</span> <span class="n">result</span><span class="o">.</span><span class="n">exit_code</span> <span class="o">==</span> <span class="mi">0</span>  
+
+        <span class="k">assert</span> <span class="s2">&quot;foo-service&quot;</span> <span class="o">==</span> <span class="n">result</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">basename</span>  
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;settings.gradle.kts&quot;</span><span class="p">)))</span> <span class="k">as</span> <span class="n">manifest_file</span><span class="p">:</span>  
+            <span class="k">assert</span> <span class="s2">&quot;foo-service&quot;</span> <span class="ow">in</span> <span class="n">manifest_file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</code></pre></div>
+
+
+<div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+      this.page.url = 'https://codesnips.pro/writing-python-tests-for-a-cookiecutter-template/';
+      this.page.identifier = 'writing-python-tests-for-a-cookiecutter-template';
+    };
+
+    (function() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://codesnips-comments.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+	</main>
+
+<script type="text/javascript">
+const copyButtonLabel = "Copy";
+
+let blocks = document.querySelectorAll("pre");
+
+blocks.forEach((block) => {
+  // only add button if browser supports Clipboard API
+  if (navigator.clipboard) {
+    let button = document.createElement("button");
+
+    button.innerText = copyButtonLabel;
+    block.appendChild(button);
+
+    button.addEventListener("click", async () => {
+      await copyCode(block, button);
+    });
+  }
+});
+
+async function copyCode(block, button) {
+  let code = block.querySelector("code");
+  let text = code.innerText;
+
+  await navigator.clipboard.writeText(text);
+
+  // visual feedback that task is completed
+  button.innerText = "Copied";
+
+  setTimeout(() => {
+    button.innerText = copyButtonLabel;
+  }, 2000);
+}
+</script>
+</body>
+</html>

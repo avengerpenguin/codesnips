@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <title>Deploying to Kubernetes (<span class="caps">EKS</span>) via&nbsp;Terraform | CodeSnips</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://codesnips.pro/deploying-to-kubernetes-eks-via-terraform/" />
+    <meta property="og:title" content="CodeSnips - Deploying to Kubernetes (<span class=&quot;caps&quot;>EKS</span>) via&nbsp;Terraform" />
+    <meta property="og:description" content="Prerequisites: AWS cli configure with AWS keys kubectl command installed Kubernetes set up on AWS via EKS (change host and cluster_ca_certificate if Kubernetes set up another way) data..." />
+
+    <link href="https://codesnips.pro/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="CodeSnips Full Atom Feed" />
+
+
+  <meta name="description" content="Prerequisites: AWS cli configure with AWS keys kubectl command installed Kubernetes set up on AWS via EKS (change host and cluster_ca_certificate if Kubernetes set up another way) data &#34;aws_eks_cluster&#34; &#34;eks&#34; { name = var.eks-cluster-name } provider &#34;kubectl&#34; { load_config_file = false host = data.aws_eks_cluster.eks.endpoint cluster_ca_certificate = base64decode(data.aws_eks_cluster.eks.certificate_authority.0.data …" />
+
+
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="theme-color" content="#ffffff">
+
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3CJVVQX70Y"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-3CJVVQX70Y');
+    </script>
+
+
+
+
+    <link rel="stylesheet" href="https://codesnips.pro/theme/css/awsm.css" />
+
+        <link rel="stylesheet" href="https://codesnips.pro/theme/css/common.min.css?64950869">
+
+        <link rel="stylesheet" href="https://codesnips.pro/theme/css/style.min.css?be5fa9a0">
+
+
+</head>
+
+<body>
+    <header>
+        <h1><a href="https://codesnips.pro/">CodeSnips</a></h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/search/">Search</a></li>
+            </ul>
+        </nav>
+    </header>
+	<main>
+    <h1>Deploying to Kubernetes (<span class="caps">EKS</span>) via&nbsp;Terraform</h1>
+    
+
+    <p>Prerequisites:</p>
+<ul>
+<li><span class="caps">AWS</span> cli configure with <span class="caps">AWS</span>&nbsp;keys</li>
+<li><code>kubectl</code> command&nbsp;installed</li>
+<li>Kubernetes set up on <span class="caps">AWS</span> via <span class="caps">EKS</span> (change <code>host</code> and <code>cluster_ca_certificate</code> if Kubernetes set up another&nbsp;way)</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kr">data</span><span class="w"> </span><span class="nc">&quot;aws_eks_cluster&quot;</span><span class="w"> </span><span class="nv">&quot;eks&quot;</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">    </span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">var.eks-cluster-name</span>
+<span class="p">}</span>
+
+<span class="kr">provider</span><span class="w"> </span><span class="nv">&quot;kubectl&quot;</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">    </span><span class="na">load_config_file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">false</span>
+<span class="w">    </span><span class="na">host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">data.aws_eks_cluster.eks.endpoint</span>
+<span class="w">    </span><span class="na">cluster_ca_certificate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">base64decode</span><span class="p">(</span><span class="nv">data.aws_eks_cluster.eks.certificate_authority.0.data</span><span class="p">)</span><span class="w"> </span>
+<span class="w">    </span><span class="nb">exec</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">        </span><span class="na">api_version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;client.authentication.k8s.io/v1beta1&quot;</span>
+<span class="w">        </span><span class="na">args</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;eks&quot;, &quot;get-token&quot;, &quot;--cluster-name&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">data.aws_eks_cluster.cluster.id</span><span class="p">]</span>
+<span class="w">        </span><span class="na">command</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;aws&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kr">data</span><span class="w"> </span><span class="nc">&quot;kubectl_path_documents&quot;</span><span class="w"> </span><span class="nv">&quot;manifests&quot;</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">    </span><span class="na">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;path/to/yaml/*.yml&quot;</span>
+<span class="p">}</span><span class="w">  </span>
+
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;kubectl_manifest&quot;</span><span class="w"> </span><span class="nv">&quot;manifest&quot;</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">    </span><span class="na">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="nv">data.kubectl_path_documents.manifests.documents</span><span class="p">)</span>
+<span class="w">    </span><span class="na">yaml_body</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element</span><span class="p">(</span><span class="nv">data.kubectl_path_documents.manifests.documents</span><span class="p">,</span><span class="w"> </span><span class="nv">count.index</span><span class="p">)</span>
+<span class="w">    </span><span class="na">wait_for_rollout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">true</span>
+<span class="w">    </span><span class="na">depends_on</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="nv">kubernetes_manifest.config</span><span class="p">]</span>
+<span class="p">}</span><span class="cm">  </span>
+
+<span class="cm">/*</span>
+<span class="cm">Example reference to AWS resource to pass to service</span>
+<span class="cm">via config block below.</span>
+<span class="cm">*/</span>
+<span class="kr">data</span><span class="w"> </span><span class="nc">&quot;aws_s3_bucket&quot;</span><span class="w"> </span><span class="nv">&quot;bucket&quot;</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">    </span><span class="na">bucket</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;my-bucket&quot;</span><span class="w">  </span>
+<span class="p">}</span>
+
+<span class="cm">/*  </span>
+<span class="cm">Optional block to pass env vars to service.</span>
+<span class="cm">Delete and the `depends_on` above if not needed.</span>
+<span class="cm">Example belows show passing hostname of S3 bucket.</span>
+<span class="cm">*/</span><span class="w">  </span>
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;kubernetes_manifest&quot;</span><span class="w"> </span><span class="nv">&quot;config&quot;</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">    </span><span class="nb">manifest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">        </span><span class="s2">&quot;apiVersion&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;v1&quot;</span><span class="w">  </span>
+<span class="w">        </span><span class="s2">&quot;kind&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;ConfigMap&quot;</span><span class="w">  </span>
+<span class="w">        </span><span class="s2">&quot;metadata&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">            </span><span class="s2">&quot;name&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;config&quot;</span><span class="w">  </span>
+<span class="w">            </span><span class="s2">&quot;namespace&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;dsdservice&quot;</span><span class="w">  </span>
+<span class="w">        </span><span class="p">}</span><span class="w">  </span>
+<span class="w">        </span><span class="s2">&quot;data&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">            </span><span class="s2">&quot;S3_BUCKET_HOST&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">data.aws_s3_bucket.bucket.bucket_domain_name</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+      this.page.url = 'https://codesnips.pro/deploying-to-kubernetes-eks-via-terraform/';
+      this.page.identifier = 'deploying-to-kubernetes-eks-via-terraform';
+    };
+
+    (function() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://codesnips-comments.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+	</main>
+
+<script type="text/javascript">
+const copyButtonLabel = "Copy";
+
+let blocks = document.querySelectorAll("pre");
+
+blocks.forEach((block) => {
+  // only add button if browser supports Clipboard API
+  if (navigator.clipboard) {
+    let button = document.createElement("button");
+
+    button.innerText = copyButtonLabel;
+    block.appendChild(button);
+
+    button.addEventListener("click", async () => {
+      await copyCode(block, button);
+    });
+  }
+});
+
+async function copyCode(block, button) {
+  let code = block.querySelector("code");
+  let text = code.innerText;
+
+  await navigator.clipboard.writeText(text);
+
+  // visual feedback that task is completed
+  button.innerText = "Copied";
+
+  setTimeout(() => {
+    button.innerText = copyButtonLabel;
+  }, 2000);
+}
+</script>
+</body>
+</html>
