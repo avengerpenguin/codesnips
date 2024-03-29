@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <title>Pushing a docker image to <span class="caps">AWS</span> Elastic Container Registry (<span class="caps">ECR</span>) | CodeSnips</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://codesnips.pro/pushing-a-docker-image-to-aws-elastic-container-registry-ecr/" />
+    <meta property="og:title" content="CodeSnips - Pushing a docker image to <span class=&quot;caps&quot;>AWS</span> Elastic Container Registry (<span class=&quot;caps&quot;>ECR</span>)" />
+    <meta property="og:description" content="Makes use of Finding your AWS account ID via aws cli. # Configure to need IMAGE_NAME=myimage IMAGE_TAG=v1.0.0 AWS_REGION=us-west-1 # Get account ID to construct ECR tag AWS_ACCOUNT_ID=$(aws..." />
+
+    <link href="https://codesnips.pro/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="CodeSnips Full Atom Feed" />
+
+
+  <meta name="description" content="Makes use of Finding your AWS account ID via aws cli. # Configure to need IMAGE_NAME=myimage IMAGE_TAG=v1.0.0 AWS_REGION=us-west-1 # Get account ID to construct ECR tag AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query &#34;Account&#34; --output text) # Full image name and tag DOCKER_IMAGE=&#34;$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$IMAGE_NAME …" />
+
+
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="theme-color" content="#ffffff">
+
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3CJVVQX70Y"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-3CJVVQX70Y');
+    </script>
+
+
+
+
+    <link rel="stylesheet" href="https://codesnips.pro/theme/css/awsm.css" />
+
+        <link rel="stylesheet" href="https://codesnips.pro/theme/css/common.min.css?64950869">
+
+        <link rel="stylesheet" href="https://codesnips.pro/theme/css/style.min.css?be5fa9a0">
+
+
+</head>
+
+<body>
+    <header>
+        <h1><a href="https://codesnips.pro/">CodeSnips</a></h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/search/">Search</a></li>
+            </ul>
+        </nav>
+    </header>
+	<main>
+    <h1>Pushing a docker image to <span class="caps">AWS</span> Elastic Container Registry (<span class="caps">ECR</span>)</h1>
+    
+
+    <p>Makes use of <a href="/finding-your-aws-account-id-via-aws-cli/">Finding your <span class="caps">AWS</span> account <span class="caps">ID</span> via aws&nbsp;cli</a>.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Configure to need</span>
+<span class="nv">IMAGE_NAME</span><span class="o">=</span>myimage
+<span class="nv">IMAGE_TAG</span><span class="o">=</span>v1.0.0
+<span class="nv">AWS_REGION</span><span class="o">=</span>us-west-1
+
+<span class="c1"># Get account ID to construct ECR tag</span>
+<span class="nv">AWS_ACCOUNT_ID</span><span class="o">=</span><span class="k">$(</span>aws<span class="w"> </span>sts<span class="w"> </span>get-caller-identity<span class="w"> </span>--query<span class="w"> </span><span class="s2">&quot;Account&quot;</span><span class="w"> </span>--output<span class="w"> </span>text<span class="k">)</span>
+
+<span class="c1"># Full image name and tag</span>
+<span class="nv">DOCKER_IMAGE</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$AWS_ACCOUNT_ID</span><span class="s2">.dkr.ecr.</span><span class="nv">$AWS_REGION</span><span class="s2">.amazonaws.com/</span><span class="nv">$IMAGE_NAME</span>$<span class="s2">:</span><span class="nv">$IMAGE_TAG</span><span class="s2">&quot;</span>
+
+<span class="c1"># Assumes current dir has a Dockerfile</span>
+docker<span class="w"> </span>build<span class="w"> </span>--tag<span class="w"> </span><span class="nv">$DOCKER_IMAGE</span><span class="w"> </span>.
+docker<span class="w"> </span>push<span class="w"> </span><span class="nv">$IMAGE</span>
+</code></pre></div>
+
+
+<div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+      this.page.url = 'https://codesnips.pro/pushing-a-docker-image-to-aws-elastic-container-registry-ecr/';
+      this.page.identifier = 'pushing-a-docker-image-to-aws-elastic-container-registry-ecr';
+    };
+
+    (function() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://codesnips-comments.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+	</main>
+
+<script type="text/javascript">
+const copyButtonLabel = "Copy";
+
+let blocks = document.querySelectorAll("pre");
+
+blocks.forEach((block) => {
+  // only add button if browser supports Clipboard API
+  if (navigator.clipboard) {
+    let button = document.createElement("button");
+
+    button.innerText = copyButtonLabel;
+    block.appendChild(button);
+
+    button.addEventListener("click", async () => {
+      await copyCode(block, button);
+    });
+  }
+});
+
+async function copyCode(block, button) {
+  let code = block.querySelector("code");
+  let text = code.innerText;
+
+  await navigator.clipboard.writeText(text);
+
+  // visual feedback that task is completed
+  button.innerText = "Copied";
+
+  setTimeout(() => {
+    button.innerText = copyButtonLabel;
+  }, 2000);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <title>Add key binding to delete currently-playing file in&nbsp;mpv | CodeSnips</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://codesnips.pro/add-key-binding-to-delete-currently-playing-file-in-mpv/" />
+    <meta property="og:title" content="CodeSnips - Add key binding to delete currently-playing file in&nbsp;mpv" />
+    <meta property="og:description" content="Config to bind Ctrl+DEL to mark a video for deletion while watching it. Press again to unmark it. Deletion is performed when mpv exits. This is useful for sorting through e.g. videos and..." />
+
+    <link href="https://codesnips.pro/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="CodeSnips Full Atom Feed" />
+
+
+  <meta name="description" content="Config to bind Ctrl+DEL to mark a video for deletion while watching it. Press again to unmark it. Deletion is performed when mpv exits. This is useful for sorting through e.g. videos and photos taken on a phone where you want to clear out things you don’t …" />
+
+
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="theme-color" content="#ffffff">
+
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3CJVVQX70Y"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-3CJVVQX70Y');
+    </script>
+
+
+
+
+    <link rel="stylesheet" href="https://codesnips.pro/theme/css/awsm.css" />
+
+        <link rel="stylesheet" href="https://codesnips.pro/theme/css/common.min.css?64950869">
+
+        <link rel="stylesheet" href="https://codesnips.pro/theme/css/style.min.css?be5fa9a0">
+
+
+</head>
+
+<body>
+    <header>
+        <h1><a href="https://codesnips.pro/">CodeSnips</a></h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/search/">Search</a></li>
+            </ul>
+        </nav>
+    </header>
+	<main>
+    <h1>Add key binding to delete currently-playing file in&nbsp;mpv</h1>
+    
+
+    <p>Config to bind Ctrl+<span class="caps">DEL</span> to mark a video for deletion while watching it. Press again to unmark it. Deletion is performed when mpv&nbsp;exits.</p>
+<p>This is useful for sorting through e.g. videos and photos taken on a phone where you want to clear out things you don&#8217;t want to keep but do so while playing/viewing&nbsp;them.</p>
+<p>Save as e.g. <code>$HOME/.config/mpv/scripts/delete_file.lua</code></p>
+<div class="highlight"><pre><span></span><code><span class="kd">local</span> <span class="n">utils</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">&quot;mp.utils&quot;</span>
+
+<span class="n">del_list</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="kr">function</span> <span class="nf">contains_item</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+   <span class="kr">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="kr">in</span> <span class="nb">pairs</span><span class="p">(</span><span class="n">l</span><span class="p">)</span> <span class="kr">do</span>
+      <span class="kr">if</span> <span class="n">v</span> <span class="o">==</span> <span class="n">i</span> <span class="kr">then</span>
+         <span class="n">mp</span><span class="p">.</span><span class="n">osd_message</span><span class="p">(</span><span class="s2">&quot;undeleting current file&quot;</span><span class="p">)</span>
+         <span class="n">l</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="kc">nil</span>
+         <span class="kr">return</span> <span class="kc">true</span>
+      <span class="kr">end</span>
+   <span class="kr">end</span>
+   <span class="n">mp</span><span class="p">.</span><span class="n">osd_message</span><span class="p">(</span><span class="s2">&quot;deleting current file&quot;</span><span class="p">)</span>
+   <span class="kr">return</span> <span class="kc">false</span>
+<span class="kr">end</span>
+
+<span class="kr">function</span> <span class="nf">mark_delete</span><span class="p">()</span>
+   <span class="kd">local</span> <span class="n">work_dir</span> <span class="o">=</span> <span class="n">mp</span><span class="p">.</span><span class="n">get_property_native</span><span class="p">(</span><span class="s2">&quot;working-directory&quot;</span><span class="p">)</span>
+   <span class="kd">local</span> <span class="n">file_path</span> <span class="o">=</span> <span class="n">mp</span><span class="p">.</span><span class="n">get_property_native</span><span class="p">(</span><span class="s2">&quot;path&quot;</span><span class="p">)</span>
+   <span class="kd">local</span> <span class="n">s</span> <span class="o">=</span> <span class="n">file_path</span><span class="p">:</span><span class="n">find</span><span class="p">(</span><span class="n">work_dir</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
+   <span class="kd">local</span> <span class="n">final_path</span>
+   <span class="kr">if</span> <span class="n">s</span> <span class="ow">and</span> <span class="n">s</span> <span class="o">==</span> <span class="mi">0</span> <span class="kr">then</span>
+      <span class="n">final_path</span> <span class="o">=</span> <span class="n">file_path</span>
+   <span class="kr">else</span>
+      <span class="n">final_path</span> <span class="o">=</span> <span class="n">utils</span><span class="p">.</span><span class="n">join_path</span><span class="p">(</span><span class="n">work_dir</span><span class="p">,</span> <span class="n">file_path</span><span class="p">)</span>
+   <span class="kr">end</span>
+   <span class="kr">if</span> <span class="ow">not</span> <span class="n">contains_item</span><span class="p">(</span><span class="n">del_list</span><span class="p">,</span> <span class="n">final_path</span><span class="p">)</span> <span class="kr">then</span>
+      <span class="nb">table.insert</span><span class="p">(</span><span class="n">del_list</span><span class="p">,</span> <span class="n">final_path</span><span class="p">)</span>
+   <span class="kr">end</span>
+<span class="kr">end</span>
+
+<span class="kr">function</span> <span class="nf">delete</span><span class="p">()</span>
+   <span class="kr">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="kr">in</span> <span class="nb">pairs</span><span class="p">(</span><span class="n">del_list</span><span class="p">)</span> <span class="kr">do</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;deleting: &quot;</span><span class="o">..</span><span class="n">v</span><span class="p">)</span>
+      <span class="nb">os.remove</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+   <span class="kr">end</span>
+<span class="kr">end</span>
+
+<span class="n">mp</span><span class="p">.</span><span class="n">add_key_binding</span><span class="p">(</span><span class="s2">&quot;ctrl+DEL&quot;</span><span class="p">,</span> <span class="s2">&quot;delete_file&quot;</span><span class="p">,</span> <span class="n">mark_delete</span><span class="p">)</span>
+<span class="n">mp</span><span class="p">.</span><span class="n">register_event</span><span class="p">(</span><span class="s2">&quot;shutdown&quot;</span><span class="p">,</span> <span class="n">delete</span><span class="p">)</span>
+</code></pre></div>
+
+
+<div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+      this.page.url = 'https://codesnips.pro/add-key-binding-to-delete-currently-playing-file-in-mpv/';
+      this.page.identifier = 'add-key-binding-to-delete-currently-playing-file-in-mpv';
+    };
+
+    (function() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://codesnips-comments.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+	</main>
+
+<script type="text/javascript">
+const copyButtonLabel = "Copy";
+
+let blocks = document.querySelectorAll("pre");
+
+blocks.forEach((block) => {
+  // only add button if browser supports Clipboard API
+  if (navigator.clipboard) {
+    let button = document.createElement("button");
+
+    button.innerText = copyButtonLabel;
+    block.appendChild(button);
+
+    button.addEventListener("click", async () => {
+      await copyCode(block, button);
+    });
+  }
+});
+
+async function copyCode(block, button) {
+  let code = block.querySelector("code");
+  let text = code.innerText;
+
+  await navigator.clipboard.writeText(text);
+
+  // visual feedback that task is completed
+  button.innerText = "Copied";
+
+  setTimeout(() => {
+    button.innerText = copyButtonLabel;
+  }, 2000);
+}
+</script>
+</body>
+</html>
