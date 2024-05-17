@@ -1,6 +1,8 @@
+from collections import defaultdict
 from pathlib import Path
+from typing import Any, Dict
 
-from voltaire.pelican import *
+from voltaire.pelican import *  # isort: skip
 
 SITENAME = "CodeSnips"
 PATH = "./CodeSnips"
@@ -9,12 +11,14 @@ ARTICLE_PATHS = ["articles"]
 PAGE_EXCLUDES = ARTICLE_PATHS
 FILENAME_METADATA = "(?P<title>.*)"
 
+if "PlUGINS" not in globals():
+    PLUGINS = []
 PLUGINS += ["voltaire.search"]
 TEMPLATE_PAGES = {
     "search.html": "search/index.html",
 }
 INDEX_SAVE_AS = ""
-ARCHIVES_SAVE_AS = AUTHORS_SAVE_AS = CATEGORIES_SAVE_AS = TAGS_SAVE_AS = ''
+ARCHIVES_SAVE_AS = AUTHORS_SAVE_AS = CATEGORIES_SAVE_AS = TAGS_SAVE_AS = ""
 
 STATIC_PATHS = [
     "../extra",
@@ -42,5 +46,10 @@ MENUITEMS_START = (
     ("Search", "/search/"),
 )
 
-MARKDOWN['extension_configs']['markdown.extensions.codehilite'] = {'css_class': 'highlight'}
-MARKDOWN['extension_configs']['markdown.extensions.meta'] = {}
+if "MARKDOWN" not in globals():
+    MARKDOWN: Dict[str, Dict[str, Any]] = defaultdict(dict)
+
+MARKDOWN["extension_configs"]["markdown.extensions.codehilite"] = {
+    "css_class": "highlight"
+}
+MARKDOWN["extension_configs"]["markdown.extensions.meta"] = {}

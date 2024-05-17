@@ -1,4 +1,5 @@
-from pelicanconf import *  # noqa
+from pelicanconf import *  # isort: skip
+
 
 SITEURL = "https://codesnips.pro"
 RELATIVE_URLS = False
