@@ -6,3 +6,4 @@ dist
 static/css/files
 node_modules
 workspace.json
+__pycache__
