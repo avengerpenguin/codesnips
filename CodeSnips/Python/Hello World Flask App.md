@@ -32,18 +32,18 @@ if __name__ == '__main__':
 Create `templates/form.html`:
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
+  <head>
     <title>Simple Form</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Enter your name:</h1>
     <form method="POST" action="/form">
-        <input type="text" name="name" required>
-        <input type="submit" value="Submit">
+      <input type="text" name="name" required />
+      <input type="submit" value="Submit" />
     </form>
-</body>
+  </body>
 </html>
 ```
 

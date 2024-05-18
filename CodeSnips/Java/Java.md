@@ -1,4 +1,3 @@
-
 ## Quarkus
 
 - [[Quarkus Hello World Web app]]

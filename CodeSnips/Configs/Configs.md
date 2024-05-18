@@ -10,8 +10,6 @@
 
 - [[Adding volume control keybindings to Xmonad]]
 
-
 ## xterm
 
 - [[Setting the font in xterm]]
-

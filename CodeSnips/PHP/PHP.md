@@ -1,2 +1,1 @@
 - [[Querying PostgreSQL from PHP]]
-
