@@ -11,7 +11,7 @@ ARTICLE_PATHS = ["articles"]
 PAGE_EXCLUDES = ARTICLE_PATHS
 FILENAME_METADATA = "(?P<title>.*)"
 
-if "PlUGINS" not in globals():
+if "PLUGINS" not in globals():
     PLUGINS = []
 PLUGINS += ["voltaire.search"]
 TEMPLATE_PAGES = {

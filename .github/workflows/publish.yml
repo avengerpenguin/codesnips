@@ -24,9 +24,9 @@ jobs:
       - name: Download fonts
         run: npm install
       - name: Build Pages Only
-        run: PYTHONPATH=. invoke build && tree && test -f content/extra/cv.pdf
+        run: PYTHONPATH=. invoke build
       - name: Build Pages and Publish
         if: github.ref == 'refs/heads/master'
-        run: PYTHONPATH=. invoke publish && tree dist
+        run: PYTHONPATH=. invoke publish
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}

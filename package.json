@@ -3,7 +3,7 @@
     "@fontsource-variable/roboto-mono": "^5.0.6",
     "@fontsource/alegreya-sans": "^5.0.5",
     "@fontsource/roboto": "^5.0.5",
-    "sass": "^1.64.2"
+    "sass": "^1.77.2"
   },
   "scripts": {
     "postinstall": "mkdir -p static/css/files && cp node_modules/@fontsource*/*/files/* static/css/files/"
