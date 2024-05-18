@@ -2,9 +2,3 @@
 include = [
     "py://nitpick/resources/python/pre-commit-hooks",
 ]
-
-[nitpick.files.present]
-"tasks.py" = "Create tasks.py containing voltaire.site()"
-
-[["tasks.py".contains]]
-line = "import voltaire"
