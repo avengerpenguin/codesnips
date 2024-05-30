@@ -1,4 +1,4 @@
-anyio==4.3.0
+anyio==4.4.0
 attrs==23.2.0
 autorepr==0.3.0
 beautifulsoup4==4.12.3
