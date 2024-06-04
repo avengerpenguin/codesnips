@@ -39,7 +39,7 @@ mccabe==0.7.0
 mdurl==0.1.2
 more-itertools==10.2.0
 nitpick==0.35.0
-nodeenv==1.8.0
+nodeenv==1.9.1
 ordered-set==4.1.0
 orderedmultidict==1.0.1
 packaging==24.0
