@@ -80,5 +80,5 @@ url-normalize==1.4.3
 urllib3==2.2.1
 virtualenv==20.26.2
 voltaire==0.17.5
-watchfiles==0.21.0
+watchfiles==0.22.0
 webassets==2.0
