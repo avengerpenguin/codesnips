@@ -33,7 +33,7 @@ loguru==0.7.2
 Markdown==3.6
 markdown-it-py==3.0.0
 MarkupSafe==2.1.5
-marshmallow==3.21.2
+marshmallow==3.21.3
 marshmallow-polyfield==5.11
 mccabe==0.7.0
 mdurl==0.1.2
