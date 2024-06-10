@@ -42,7 +42,7 @@ nitpick==0.35.0
 nodeenv==1.9.1
 ordered-set==4.1.0
 orderedmultidict==1.0.1
-packaging==24.0
+packaging==24.1
 pelican==4.9.1
 pelican-sitemap==1.1.0
 pelican-webassets==2.0.0
