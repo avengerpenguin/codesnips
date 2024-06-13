@@ -16,7 +16,7 @@ doctrine==0.6.0
 docutils==0.21.2
 dpath==2.1.6
 feedgenerator==2.1.0
-filelock==3.14.0
+filelock==3.15.1
 flake8==7.0.0
 flatten-dict==0.4.2
 furl==2.1.3
